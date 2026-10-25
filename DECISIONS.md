@@ -1,0 +1,9 @@
+# Commit-Pinned Architectural Decisions (`DECISIONS.md`)
+
+Each entry binds an architectural claim to the Git commit SHA where it was verified and the file-scope glob it governs. Run `npm run memory-audit` to detect `DRIFTED` claims whenever governed files change.
+
+- [sha:a356c4b | scope:.claude-plugin/**, .codex-plugin/**, .cursor-plugin/**, gemini-extension.json] Use a flat `skills/<name>/SKILL.md` promoted-only directory layout so Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Gemini CLI, Antigravity, and `npx skills@latest` all resolve the exact same catalog without symlinks.
+- [sha:8b25897 | scope:src/memory-ledger.ts] Cross-session memory claims must be pinned to `[sha:<commit> | scope:<glob>]` and verified via `git diff --name-only <sha>..HEAD` rather than prose timestamps alone.
+- [sha:8b25897 | scope:src/seam-analyzer.ts] Parallel worktree waves (`apex-waves`) require mathematical seam disjointness (`seamsOverlap(a, b) === false`) before concurrent dispatch, serializing overlapping tasks into subsequent waves.
+- [sha:8b25897 | scope:src/runtime-guards.ts] External documentation caching (`computePromptAwareCacheKey`) must hash `canonicalUrl + normalizedPrompt + etag + lastModified`, and immutable code block protection (`verifyImmutableBlocksUnchanged`) must verify SHA-256 signatures out-of-band without mutating source files on disk.
+- [sha:977c4f9 | scope:skills/**] Split the 16-skill catalog into 6 Model-Invoked Core Skills (`256` tokens total frontmatter) and 10 User-Invoked Workflow Skills (`disable-model-invocation: true`, `0` cold-start tokens) routed via `/apex-router`.
