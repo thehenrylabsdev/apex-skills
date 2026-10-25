@@ -179,8 +179,23 @@ npm run benchmark
 
 ---
 
+## Enterprise Reference Architecture Demo: `ApexLedger` (`examples/apex-ledger/`)
+
+To prove how `apex-skills` operates on a realistic, production-grade polyglot system, this repository includes **`ApexLedger`** ([`examples/apex-ledger/`](./examples/apex-ledger/)) — a high-concurrency Flash-Commerce, Inventory Reservation, and Double-Entry Settlement platform built across 5 layers with **3 mandatory enterprise environments (`LOCAL`, `DEV`, `PROD`)** and **Cross-Layer Producer/Consumer Contract Testing**:
+
+1. **Canonical Contract Seam ([`examples/apex-ledger/contracts/`](./examples/apex-ledger/contracts/)):** OpenAPI `3.1.0` (`openapi-v1.json`) + 6 Golden JSON Wire Fixtures (including `forward-compatible-v2-order.json` to verify that Backend additive API evolution never crashes un-updated Mobile or Web clients).
+2. **Backend ([`examples/apex-ledger/backend/`](./examples/apex-ledger/backend/)):** **Java 25 LTS** + **Spring Boot `4.1.2`** + **Spring Modulith `2.1.2`** + **Gradle `9.7.1`** + PostgreSQL + Apache Kafka + Redis + Lombok + MapStruct + ArchUnit + JUnit 5 + Mockito + Testcontainers + SpringDoc OpenAPI + JaCoCo.
+3. **Shared Mobile Core ([`examples/apex-ledger/shared-kmp/`](./examples/apex-ledger/shared-kmp/)):** **Kotlin `2.4.0` Multiplatform** sharing `AppEnvironment` (`LOCAL/DEV/PROD`), forward-compatible `@Serializable` wire models (`ignoreUnknownKeys = true`), and the deterministic `CheckoutStatechart` reducer.
+4. **Android App ([`examples/apex-ledger/android-app/`](./examples/apex-ledger/android-app/)) & iOS App ([`examples/apex-ledger/ios-app/`](./examples/apex-ledger/ios-app/)):** Native **Jetpack Compose** (`Kotlin 2.4.0`, Material 3, Navigation 3, Adaptive Edge-to-Edge) and **SwiftUI** (**Swift `6.4`**, SF Symbols, Dynamic Type).
+5. **Web Storefront & SRE Command Center ([`examples/apex-ledger/web-app/`](./examples/apex-ledger/web-app/)):** **Next.js `16.4.3`** (Turbopack) + **React `19.3.1`** + TypeScript Strict + `lucide-react`, conforming strictly to [`DESIGNS.md`](./DESIGNS.md) and **WCAG 2.2 AA**.
+
+Read the complete step-by-step engineering walkthrough in **[docs/CASE-STUDY-APEX-LEDGER.md](./docs/CASE-STUDY-APEX-LEDGER.md)**.
+
+---
+
 ## Deep-Dive Documentation Index
 
+- **[docs/CASE-STUDY-APEX-LEDGER.md](./docs/CASE-STUDY-APEX-LEDGER.md):** End-to-end engineering walkthrough showing how `apex-skills` built, scheduled, contract-tested, and verified the polyglot `ApexLedger` platform.
 - **[docs/CRITIQUE-AND-ORIGINS.md](./docs/CRITIQUE-AND-ORIGINS.md):** Complete architectural dissection, visual diagrams, and empirical critique of `LaurenTan` (`pstack`), `addyosmani` (`agent-skills`), and `mattpocock` (`skills`).
 - **[docs/BENCHMARK-REPORT.md](./docs/BENCHMARK-REPORT.md):** Mathematical models and reproducible benchmark results across all 4 repositories.
 - **[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md):** Deep dive into the TypeScript deterministic runtime engine (`MemoryLedgerEngine`, `DisjointSeamAnalyzer`, `RuntimeGuards`, `FourTierEvalEngine`).

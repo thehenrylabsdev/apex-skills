@@ -5,6 +5,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [1.1.0] - 2026-10-25
+
+### Added
+
+- **Multi-Platform Enterprise Reference Architecture (`examples/apex-ledger/`):**
+  - **Canonical Cross-Layer Contract Suite (`examples/apex-ledger/contracts/`):** Added `openapi-v1.json` (OpenAPI 3.1.0) and 6 Golden JSON Wire Fixtures (`campaigns-response.json`, `reservation-created.json`, `order-confirmed-settled.json`, `ledger-summary.json`, `problem-out-of-stock.json`, and `forward-compatible-v2-order.json`) verified across Backend, Web, KMP, Android, and iOS.
+  - **Enterprise Backend (`examples/apex-ledger/backend/`):** Implemented with **Java 25 LTS**, **Spring Boot `4.1.2`**, **Spring Modulith `2.1.2`**, **Gradle `9.7.1`**, PostgreSQL, Apache Kafka, Redis, Lombok, MapStruct, ArchUnit, JUnit 5, Mockito, Testcontainers, SpringDoc OpenAPI, JaCoCo, and 3 environment profiles (`application-local.yml`, `application-dev.yml`, `application-prod.yml`).
+  - **Shared Mobile Core (`examples/apex-ledger/shared-kmp/`):** Implemented with **Kotlin `2.4.0` Multiplatform**, `AppEnvironment` (`LOCAL`, `DEV`, `PROD`), forward-compatible `@Serializable` wire models (`ignoreUnknownKeys = true`), and deterministic `CheckoutStatechart`.
+  - **Android Native App (`examples/apex-ledger/android-app/`):** Implemented with **Kotlin `2.4.0`**, Jetpack Compose, Jetpack Navigation 3 backstack keys, Adaptive Edge-to-Edge semantics, and `:shared-kmp` composite integration.
+  - **iOS Native App (`examples/apex-ledger/ios-app/`):** Implemented with **Swift `6.4`** (`StrictConcurrency`), SwiftUI, SF Symbols, Dynamic Type, and native `swift test` contract & statechart verification.
+  - **Web Storefront & SRE Command Center (`examples/apex-ledger/web-app/`):** Implemented with **Next.js `16.4.3`** (Turbopack), **React `19.3.1`**, TypeScript Strict, `lucide-react`, 3 environment profiles (`.env.local`, `.env.development`, `.env.production`), and WCAG 2.2 AA compliance.
+- **Standardized Design System (`DESIGNS.md`) & Case Study (`docs/CASE-STUDY-APEX-LEDGER.md`):**
+  - Authored `DESIGNS.md` validated with `@google/design.md` and `verify-wcag.sh`, plus `docs/CASE-STUDY-APEX-LEDGER.md` documenting the full `apex-skills` lifecycle.
+
+---
+
 ## [1.0.0] - 2026-10-25
 
 ### Added
