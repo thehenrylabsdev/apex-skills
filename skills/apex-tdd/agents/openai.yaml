@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex TDD"
+  short_description: "Heterodox seam-based TDD with vertical tracer bullets, deep modules, and zero mid-loop refactoring."
+policy:
+  allow_implicit_invocation: true

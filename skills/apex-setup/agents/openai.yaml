@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Setup"
+  short_description: "Idempotent bootstrap and --verify drift audit for GLOSSARY.md, CONSTRAINTS.md, and DECISIONS.md."
+policy:
+  allow_implicit_invocation: false

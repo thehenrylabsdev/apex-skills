@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Spec"
+  short_description: "Author a high-density specification with public seam contracts, invariants, and verification ratchets."
+policy:
+  allow_implicit_invocation: false

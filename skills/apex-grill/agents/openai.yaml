@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Grill"
+  short_description: "Bounded design-tree requirement interrogation (max 4 questions/round) with default-yes recommendations."
+policy:
+  allow_implicit_invocation: true

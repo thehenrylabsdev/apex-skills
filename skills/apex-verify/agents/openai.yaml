@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Verify"
+  short_description: "Doubt-driven two-axis diff review (Spec vs. Standards) with Depth-1 Leaf-Agent recursion guards."
+policy:
+  allow_implicit_invocation: true

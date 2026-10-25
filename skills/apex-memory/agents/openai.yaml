@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Memory"
+  short_description: "Commit-pinned cross-session semantic memory ledger (DECISIONS.md, CONSTRAINTS.md, GLOSSARY.md)."
+policy:
+  allow_implicit_invocation: true

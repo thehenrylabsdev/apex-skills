@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Arena"
+  short_description: "Targeted 2-worktree adversarial prototyping tournament and seam grafting."
+policy:
+  allow_implicit_invocation: false

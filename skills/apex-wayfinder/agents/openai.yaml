@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Wayfinder"
+  short_description: "Multi-session Fog-of-War epistemic map and single-ticket-per-session orchestrator."
+policy:
+  allow_implicit_invocation: false

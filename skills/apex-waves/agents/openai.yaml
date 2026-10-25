@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Waves"
+  short_description: "Disjoint-seam wave graph execution with warm KV-Cache subagent reuse."
+policy:
+  allow_implicit_invocation: false

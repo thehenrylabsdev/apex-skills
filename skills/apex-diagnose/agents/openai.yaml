@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Diagnose"
+  short_description: "Red-loop first debugging and performance diagnosis with falsifiable hypotheses and minimal repros."
+policy:
+  allow_implicit_invocation: true

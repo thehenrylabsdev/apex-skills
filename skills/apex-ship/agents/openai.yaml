@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Ship"
+  short_description: "Pre-flight release verification, memory audit, blast-radius classification, and visual PR close-out."
+policy:
+  allow_implicit_invocation: false

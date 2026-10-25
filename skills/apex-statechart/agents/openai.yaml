@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Statechart"
+  short_description: "Formal state-machine modeling, transition matrix verification, and discriminated union encoding."
+policy:
+  allow_implicit_invocation: false

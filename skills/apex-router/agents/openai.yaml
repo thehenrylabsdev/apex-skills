@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Router"
+  short_description: "2x2 state-space diagnostic router and Smart-Zone (<150k tokens) phase-boundary advisor."
+policy:
+  allow_implicit_invocation: false

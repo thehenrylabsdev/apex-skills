@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Guard"
+  short_description: "Self-contained OWASP security, Core Web Vitals, database query, and WCAG 2.2 AA compliance gate."
+policy:
+  allow_implicit_invocation: true

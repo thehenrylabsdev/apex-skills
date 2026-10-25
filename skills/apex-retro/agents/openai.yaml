@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Retro"
+  short_description: "Session retrospective to convert prose rules into deterministic checks and prune token bloat."
+policy:
+  allow_implicit_invocation: false

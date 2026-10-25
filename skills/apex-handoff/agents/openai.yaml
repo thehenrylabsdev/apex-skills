@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Handoff"
+  short_description: "Serialize loss-minimized, commit-pinned session context into .apex/handoff.md for cross-harness continuation."
+policy:
+  allow_implicit_invocation: false
