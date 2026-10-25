@@ -1,0 +1,29 @@
+{
+  "contractVersion": "2026-10-25",
+  "environment": "LOCAL",
+  "totalDebitCents": 249900,
+  "totalCreditCents": 249900,
+  "netBalanceCents": 0,
+  "zeroSumInvariantHold": true,
+  "settledOrdersCount": 1,
+  "entries": [
+    {
+      "entryId": "55555555-5555-4555-8555-555555555501",
+      "orderId": "22222222-2222-4222-8222-222222222201",
+      "transactionId": "TXN-LEDGER-99001",
+      "direction": "DEBIT",
+      "accountCode": "1100-BUYER-CLEARING",
+      "amountCents": 249900,
+      "createdAtIso": "2026-10-25T04:20:00Z"
+    },
+    {
+      "entryId": "55555555-5555-4555-8555-555555555502",
+      "orderId": "22222222-2222-4222-8222-222222222201",
+      "transactionId": "TXN-LEDGER-99001",
+      "direction": "CREDIT",
+      "accountCode": "4000-MERCHANT-REVENUE",
+      "amountCents": 249900,
+      "createdAtIso": "2026-10-25T04:20:00Z"
+    }
+  ]
+}

@@ -4,3 +4,9 @@ coverage/
 .DS_Store
 *.log
 .apex/tmp/
+**/.gradle/
+**/build/
+**/.next/
+**/dist-test/
+**/.build/
+**/next-env.d.ts

@@ -1,0 +1,424 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ApexLedger Enterprise API",
+    "version": "1.0.0",
+    "description": "High-Concurrency Flash-Commerce, Inventory Reservation & Double-Entry Settlement Contract",
+    "x-contract-version": "2026-10-25"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "LOCAL Environment"
+    },
+    {
+      "url": "https://dev-api.apexledger.internal",
+      "description": "DEV Environment"
+    },
+    {
+      "url": "https://api.apexledger.io",
+      "description": "PROD Environment"
+    }
+  ],
+  "paths": {
+    "/api/v1/campaigns": {
+      "get": {
+        "operationId": "listCampaigns",
+        "summary": "List active flash-drop campaigns with real-time stock counters",
+        "responses": {
+          "200": {
+            "description": "Active campaigns list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/reservations": {
+      "post": {
+        "operationId": "createReservation",
+        "summary": "Atomically reserve inventory with Redis/PostgreSQL lock and Idempotency-Key deduplication",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Apex-Contract-Version",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "2026-10-25"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReservationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Inventory reserved (10-minute TTL hold)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderSnapshotDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Stock exhausted (RFC 9457 ProblemDetails)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/orders/{orderId}/confirm": {
+      "post": {
+        "operationId": "confirmAndSettleOrder",
+        "summary": "Confirm payment and post balanced double-entry settlement ledger entries",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order confirmed and settled in double-entry ledger",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderSnapshotDto"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Reservation hold expired",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ops/ledger-summary": {
+      "get": {
+        "operationId": "getLedgerSummary",
+        "summary": "Retrieve real-time double-entry ledger audit summary and zero-sum invariant check",
+        "responses": {
+          "200": {
+            "description": "Balanced ledger summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerSummaryDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ops/simulate-burst": {
+      "post": {
+        "operationId": "simulateConcurrencyBurst",
+        "summary": "Fire N concurrent virtual-thread buyers against a campaign to prove zero overselling",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BurstSimulationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Burst simulation outcome metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BurstSimulationResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CampaignListResponse": {
+        "type": "object",
+        "required": ["contractVersion", "environment", "campaigns"],
+        "properties": {
+          "contractVersion": { "type": "string" },
+          "environment": { "type": "string", "enum": ["LOCAL", "DEV", "PROD"] },
+          "campaigns": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FlashCampaignDto" }
+          }
+        }
+      },
+      "FlashCampaignDto": {
+        "type": "object",
+        "required": [
+          "campaignId",
+          "skuCode",
+          "title",
+          "subtitle",
+          "unitPriceCents",
+          "currency",
+          "initialAllocation",
+          "remainingStock",
+          "reservedStock",
+          "settledStock",
+          "status"
+        ],
+        "properties": {
+          "campaignId": { "type": "string", "format": "uuid" },
+          "skuCode": { "type": "string" },
+          "title": { "type": "string" },
+          "subtitle": { "type": "string" },
+          "unitPriceCents": { "type": "integer", "minimum": 1 },
+          "currency": { "type": "string" },
+          "initialAllocation": { "type": "integer", "minimum": 0 },
+          "remainingStock": { "type": "integer", "minimum": 0 },
+          "reservedStock": { "type": "integer", "minimum": 0 },
+          "settledStock": { "type": "integer", "minimum": 0 },
+          "status": { "type": "string", "enum": ["ACTIVE", "SOLD_OUT", "PAUSED"] }
+        }
+      },
+      "CreateReservationRequest": {
+        "type": "object",
+        "required": ["campaignId", "buyerId", "quantity"],
+        "properties": {
+          "campaignId": { "type": "string", "format": "uuid" },
+          "buyerId": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1, "maximum": 5 }
+        }
+      },
+      "ConfirmOrderRequest": {
+        "type": "object",
+        "required": ["paymentMethodToken"],
+        "properties": {
+          "paymentMethodToken": { "type": "string" }
+        }
+      },
+      "OrderSnapshotDto": {
+        "type": "object",
+        "required": [
+          "orderId",
+          "campaignId",
+          "skuCode",
+          "buyerId",
+          "quantity",
+          "totalAmountCents",
+          "currency",
+          "status",
+          "idempotencyKey",
+          "idempotentReplay",
+          "expiresAtEpochMs",
+          "contractVersion"
+        ],
+        "properties": {
+          "orderId": { "type": "string", "format": "uuid" },
+          "campaignId": { "type": "string", "format": "uuid" },
+          "skuCode": { "type": "string" },
+          "buyerId": { "type": "string" },
+          "quantity": { "type": "integer" },
+          "totalAmountCents": { "type": "integer" },
+          "currency": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": [
+              "IDLE",
+              "RESERVING",
+              "RESERVED",
+              "PAYMENT_PROCESSING",
+              "CONFIRMED",
+              "SETTLED",
+              "REJECTED_OUT_OF_STOCK",
+              "EXPIRED",
+              "CANCELLED"
+            ]
+          },
+          "idempotencyKey": { "type": "string" },
+          "idempotentReplay": { "type": "boolean" },
+          "expiresAtEpochMs": { "type": "integer" },
+          "contractVersion": { "type": "string" },
+          "settlementReceipt": {
+            "$ref": "#/components/schemas/SettlementReceiptDto"
+          }
+        }
+      },
+      "SettlementReceiptDto": {
+        "type": "object",
+        "required": [
+          "transactionId",
+          "debitAccountCode",
+          "creditAccountCode",
+          "debitAmountCents",
+          "creditAmountCents",
+          "zeroSumVerified",
+          "settledAtIso"
+        ],
+        "properties": {
+          "transactionId": { "type": "string" },
+          "debitAccountCode": { "type": "string" },
+          "creditAccountCode": { "type": "string" },
+          "debitAmountCents": { "type": "integer" },
+          "creditAmountCents": { "type": "integer" },
+          "zeroSumVerified": { "type": "boolean" },
+          "settledAtIso": { "type": "string" }
+        }
+      },
+      "LedgerSummaryDto": {
+        "type": "object",
+        "required": [
+          "contractVersion",
+          "environment",
+          "totalDebitCents",
+          "totalCreditCents",
+          "netBalanceCents",
+          "zeroSumInvariantHold",
+          "settledOrdersCount",
+          "entries"
+        ],
+        "properties": {
+          "contractVersion": { "type": "string" },
+          "environment": { "type": "string" },
+          "totalDebitCents": { "type": "integer" },
+          "totalCreditCents": { "type": "integer" },
+          "netBalanceCents": { "type": "integer" },
+          "zeroSumInvariantHold": { "type": "boolean" },
+          "settledOrdersCount": { "type": "integer" },
+          "entries": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LedgerPostingEntryDto" }
+          }
+        }
+      },
+      "LedgerPostingEntryDto": {
+        "type": "object",
+        "required": [
+          "entryId",
+          "orderId",
+          "transactionId",
+          "direction",
+          "accountCode",
+          "amountCents",
+          "createdAtIso"
+        ],
+        "properties": {
+          "entryId": { "type": "string" },
+          "orderId": { "type": "string" },
+          "transactionId": { "type": "string" },
+          "direction": { "type": "string", "enum": ["DEBIT", "CREDIT"] },
+          "accountCode": { "type": "string" },
+          "amountCents": { "type": "integer" },
+          "createdAtIso": { "type": "string" }
+        }
+      },
+      "BurstSimulationRequest": {
+        "type": "object",
+        "required": ["campaignId", "concurrentBuyers"],
+        "properties": {
+          "campaignId": { "type": "string", "format": "uuid" },
+          "concurrentBuyers": { "type": "integer", "minimum": 1, "maximum": 200 }
+        }
+      },
+      "BurstSimulationResponseDto": {
+        "type": "object",
+        "required": [
+          "campaignId",
+          "concurrentBuyers",
+          "reservedSuccessCount",
+          "rejectedOutOfStockCount",
+          "remainingStockAfterBurst",
+          "oversellCount",
+          "invariantPreserved",
+          "durationMs"
+        ],
+        "properties": {
+          "campaignId": { "type": "string" },
+          "concurrentBuyers": { "type": "integer" },
+          "reservedSuccessCount": { "type": "integer" },
+          "rejectedOutOfStockCount": { "type": "integer" },
+          "remainingStockAfterBurst": { "type": "integer" },
+          "oversellCount": { "type": "integer" },
+          "invariantPreserved": { "type": "boolean" },
+          "durationMs": { "type": "integer" }
+        }
+      },
+      "ProblemDetailsDto": {
+        "type": "object",
+        "required": ["type", "title", "status", "detail", "errorCode", "traceId"],
+        "properties": {
+          "type": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "integer" },
+          "detail": { "type": "string" },
+          "errorCode": { "type": "string" },
+          "traceId": { "type": "string" }
+        }
+      }
+    }
+  }
+}

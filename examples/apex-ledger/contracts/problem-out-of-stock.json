@@ -1,0 +1,8 @@
+{
+  "type": "https://api.apexledger.io/problems/out-of-stock",
+  "title": "Flash Allocation Exhausted",
+  "status": 409,
+  "detail": "Requested quantity (1) exceeds remaining flash allocation (0) for SKU APEX-CHRONO-TI.",
+  "errorCode": "PROBLEM_OUT_OF_STOCK",
+  "traceId": "trc-8f91a204-20261025"
+}

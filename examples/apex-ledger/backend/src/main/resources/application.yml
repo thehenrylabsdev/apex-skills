@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: apex-ledger-backend
+  profiles:
+    default: local
+  threads:
+    virtual:
+      enabled: true
+  jackson:
+    default-property-inclusion: always
+
+server:
+  port: ${PORT:8080}
+
+apex:
+  contract-version: "2026-10-25"
+  environment: "LOCAL"
+  reservation-ttl-ms: 600000

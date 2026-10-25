@@ -4,7 +4,16 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   {
-    ignores: ["dist/**", "node_modules/**", "coverage/**"],
+    ignores: [
+      "dist/**",
+      "node_modules/**",
+      "coverage/**",
+      "**/build/**",
+      "**/.next/**",
+      "**/dist-test/**",
+      "**/.gradle/**",
+      "**/next-env.d.ts",
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,

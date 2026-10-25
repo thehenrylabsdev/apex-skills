@@ -1,0 +1,43 @@
+apex:
+  environment: "PROD"
+  use-embedded-infra: false
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://prod-db.apexledger.internal:5432/apexledger}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USER:apex_prod}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 15
+      connection-timeout: 3000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  data:
+    redis:
+      host: ${REDIS_HOST:prod-redis.apexledger.internal}
+      port: ${REDIS_PORT:6379}
+      ssl:
+        enabled: true
+      timeout: 1000ms
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:prod-kafka.apexledger.internal:9092}
+    producer:
+      acks: all
+      retries: 5
+      properties:
+        enable.idempotence: true
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.thehenrylabs.apexledger: INFO

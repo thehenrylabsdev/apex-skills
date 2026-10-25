@@ -1,0 +1,30 @@
+{
+  "orderId": "22222222-2222-4222-8222-222222222299",
+  "campaignId": "11111111-1111-4111-8111-111111111101",
+  "skuCode": "APEX-H200-NODE",
+  "buyerId": "usr-mobile-unupdated-v1-client",
+  "quantity": 1,
+  "totalAmountCents": 249900,
+  "currency": "USD",
+  "status": "SETTLED",
+  "idempotencyKey": "44444444-4444-4444-8444-444444444499",
+  "idempotentReplay": true,
+  "expiresAtEpochMs": 1792900600000,
+  "contractVersion": "2027-03-01",
+  "loyaltyPointsEarned": 2499,
+  "warehouseRoutingNode": "AP-SOUTHEAST-SG-02",
+  "unknownFutureMetadata": {
+    "carbonOffsetGrams": 420,
+    "priorityLane": "INSTITUTIONAL_TIER_1"
+  },
+  "settlementReceipt": {
+    "transactionId": "TXN-LEDGER-99099",
+    "debitAccountCode": "1100-BUYER-CLEARING",
+    "creditAccountCode": "4000-MERCHANT-REVENUE",
+    "debitAmountCents": 249900,
+    "creditAmountCents": 249900,
+    "zeroSumVerified": true,
+    "settledAtIso": "2026-10-25T04:25:00Z",
+    "settlementRailV2": "FEDNOW_INSTANT_V2"
+  }
+}
