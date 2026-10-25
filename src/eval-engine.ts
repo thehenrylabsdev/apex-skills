@@ -33,6 +33,7 @@ const FRONTMATTER_REGEX = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
 const SKILL_TOOL_CALL_REGEX =
   /Call the Skill tool (?:with|for)\s+`([a-z0-9-]+)`/gi;
 const MARKDOWN_LINK_REGEX = /\[[^\]]*\]\(([^)]+)\)/g;
+const BACKTICK_PARENT_PATH_REGEX = /`(\.\.\/[^`\s]+)`/g;
 
 const STOPWORDS = new Set<string>([
   "a",
@@ -168,6 +169,12 @@ export function parseSkillDirectory(skillDirPath: string): SkillMetadata {
       href.startsWith("..\\")
     ) {
       externalRelativeLinks.push(href);
+    }
+  }
+  for (const btMatch of bodyRaw.matchAll(BACKTICK_PARENT_PATH_REGEX)) {
+    const relPath = btMatch[1]?.trim() ?? "";
+    if (relPath.length > 0 && !externalRelativeLinks.includes(relPath)) {
+      externalRelativeLinks.push(relPath);
     }
   }
 

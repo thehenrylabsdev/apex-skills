@@ -1,0 +1,170 @@
+[
+  {
+    "id": "grill-01-ambiguous-requirements",
+    "prompt": "We have a vague product idea for multi-tenant billing. Clarify the ambiguous requirements and interview me on the design tree before coding.",
+    "expectedSkill": "apex-grill",
+    "forbiddenSkills": ["apex-tdd", "apex-diagnose"],
+    "category": "natural"
+  },
+  {
+    "id": "grill-02-architectural-tradeoffs",
+    "prompt": "Help me resolve architectural trade-offs and align on product scope for our new webhook engine.",
+    "expectedSkill": "apex-grill",
+    "forbiddenSkills": ["apex-verify", "apex-guard"],
+    "category": "natural"
+  },
+  {
+    "id": "grill-03-design-tree-questions",
+    "prompt": "Interview the user on a design tree to clarify ambiguous requirements before we write any implementation.",
+    "expectedSkill": "apex-grill",
+    "forbiddenSkills": ["apex-tdd"],
+    "category": "understated"
+  },
+  {
+    "id": "grill-04-scope-alignment",
+    "prompt": "Before coding, let's clarify ambiguous requirements and align on product scope.",
+    "expectedSkill": "apex-grill",
+    "forbiddenSkills": ["apex-diagnose"],
+    "category": "adversarial"
+  },
+  {
+    "id": "tdd-01-implement-feature-test-first",
+    "prompt": "Implement this new rate-limiter feature test-first using seam-based TDD and vertical tracer bullets.",
+    "expectedSkill": "apex-tdd",
+    "forbiddenSkills": ["apex-diagnose", "apex-verify"],
+    "category": "natural"
+  },
+  {
+    "id": "tdd-02-understated-behavior-change",
+    "prompt": "Implement a behavior change test-first with unit or integration tests at the deep module seam.",
+    "expectedSkill": "apex-tdd",
+    "forbiddenSkills": ["apex-grill"],
+    "category": "understated"
+  },
+  {
+    "id": "tdd-03-deep-modules-tracer",
+    "prompt": "Build this module using vertical tracer bullets, deep modules, and seam-based TDD.",
+    "expectedSkill": "apex-tdd",
+    "forbiddenSkills": ["apex-guard"],
+    "category": "natural"
+  },
+  {
+    "id": "tdd-04-unit-integration-tests",
+    "prompt": "Write unit or integration tests first to implement this behavior change using seam-based TDD.",
+    "expectedSkill": "apex-tdd",
+    "forbiddenSkills": ["apex-verify"],
+    "category": "adversarial"
+  },
+  {
+    "id": "diagnose-01-broken-code-stack-trace",
+    "prompt": "Debug broken code and investigate this stack trace where the worker crashes under load.",
+    "expectedSkill": "apex-diagnose",
+    "forbiddenSkills": ["apex-tdd", "apex-verify"],
+    "category": "natural"
+  },
+  {
+    "id": "diagnose-02-failing-test-regression",
+    "prompt": "Diagnose hard bugs and fix failing tests after the latest queue refactor.",
+    "expectedSkill": "apex-diagnose",
+    "forbiddenSkills": ["apex-grill"],
+    "category": "natural"
+  },
+  {
+    "id": "diagnose-03-perf-regression-root-cause",
+    "prompt": "Investigate crashes and root-cause performance regressions in the checkout endpoint.",
+    "expectedSkill": "apex-diagnose",
+    "forbiddenSkills": ["apex-tdd"],
+    "category": "understated"
+  },
+  {
+    "id": "diagnose-04-errors-and-crashes",
+    "prompt": "Debug broken code, fix failing tests, and investigate stack traces for this production error.",
+    "expectedSkill": "apex-diagnose",
+    "forbiddenSkills": ["apex-verify"],
+    "category": "adversarial"
+  },
+  {
+    "id": "verify-01-review-diff-before-merge",
+    "prompt": "Review a git diff before merge across Spec compliance and Coding Standards.",
+    "expectedSkill": "apex-verify",
+    "forbiddenSkills": ["apex-tdd", "apex-diagnose"],
+    "category": "understated"
+  },
+  {
+    "id": "verify-02-pull-request-review",
+    "prompt": "Review this pull request or branch before merge using Doubt-Driven verification.",
+    "expectedSkill": "apex-verify",
+    "forbiddenSkills": ["apex-grill"],
+    "category": "natural"
+  },
+  {
+    "id": "verify-03-spec-and-standards-check",
+    "prompt": "Please review a git diff and pull request across Spec compliance and Coding Standards.",
+    "expectedSkill": "apex-verify",
+    "forbiddenSkills": ["apex-guard"],
+    "category": "natural"
+  },
+  {
+    "id": "verify-04-branch-verification",
+    "prompt": "Run Doubt-Driven verification to review this branch before merge against Coding Standards.",
+    "expectedSkill": "apex-verify",
+    "forbiddenSkills": ["apex-tdd"],
+    "category": "adversarial"
+  },
+  {
+    "id": "guard-01-owasp-security-audit",
+    "prompt": "Audit security vulnerabilities, OWASP risks, and auth flaws in our API handlers.",
+    "expectedSkill": "apex-guard",
+    "forbiddenSkills": ["apex-verify", "apex-tdd"],
+    "category": "natural"
+  },
+  {
+    "id": "guard-02-cwv-and-n-plus-one",
+    "prompt": "Check web performance, Core Web Vitals, and N+1 queries on the dashboard route.",
+    "expectedSkill": "apex-guard",
+    "forbiddenSkills": ["apex-grill"],
+    "category": "natural"
+  },
+  {
+    "id": "guard-03-wcag-accessibility-compliance",
+    "prompt": "Audit WCAG accessibility compliance and Core Web Vitals for the new settings modal.",
+    "expectedSkill": "apex-guard",
+    "forbiddenSkills": ["apex-diagnose"],
+    "category": "understated"
+  },
+  {
+    "id": "guard-04-security-perf-a11y",
+    "prompt": "Audit security vulnerabilities, N+1 queries, and WCAG accessibility compliance.",
+    "expectedSkill": "apex-guard",
+    "forbiddenSkills": ["apex-verify"],
+    "category": "adversarial"
+  },
+  {
+    "id": "memory-01-glossary-domain-terms",
+    "prompt": "Maintain GLOSSARY.md domain terminology and commit-pinned DECISIONS.md architectural memory.",
+    "expectedSkill": "apex-memory",
+    "forbiddenSkills": ["apex-grill", "apex-tdd"],
+    "category": "natural"
+  },
+  {
+    "id": "memory-02-constraints-ratchets",
+    "prompt": "Update CONSTRAINTS.md ratchets and commit-pinned DECISIONS.md architectural memory across sessions.",
+    "expectedSkill": "apex-memory",
+    "forbiddenSkills": ["apex-verify"],
+    "category": "natural"
+  },
+  {
+    "id": "memory-03-ubiquitous-language-update",
+    "prompt": "Maintain GLOSSARY.md domain terminology and CONSTRAINTS.md ratchets for our bounded context.",
+    "expectedSkill": "apex-memory",
+    "forbiddenSkills": ["apex-diagnose"],
+    "category": "understated"
+  },
+  {
+    "id": "memory-04-cross-session-ledger",
+    "prompt": "Sync commit-pinned DECISIONS.md architectural memory across sessions and GLOSSARY.md domain terminology.",
+    "expectedSkill": "apex-memory",
+    "forbiddenSkills": ["apex-guard"],
+    "category": "adversarial"
+  }
+]
