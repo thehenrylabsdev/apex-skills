@@ -1,0 +1,23 @@
+{
+  "name": "apex-skills",
+  "displayName": "Apex Skills",
+  "version": "1.0.0",
+  "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents.",
+  "author": {
+    "name": "Henry Nguyen"
+  },
+  "homepage": "https://github.com/thehenrylabsdev/apex-skills",
+  "repository": "https://github.com/thehenrylabsdev/apex-skills",
+  "license": "MIT",
+  "category": "developer-tools",
+  "keywords": [
+    "apex-skills",
+    "context-engineering",
+    "seam-tdd",
+    "grilling",
+    "kv-cache",
+    "memory-ledger"
+  ],
+  "tags": ["workflow", "architecture", "review", "testing"],
+  "skills": "./skills/"
+}

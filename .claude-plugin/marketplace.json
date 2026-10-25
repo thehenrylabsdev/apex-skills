@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "apex-skills-marketplace",
+  "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents (2026+).",
+  "owner": {
+    "name": "Henry Nguyen",
+    "url": "https://github.com/thehenrylabsdev"
+  },
+  "plugins": [
+    {
+      "name": "apex-skills",
+      "version": "1.0.0",
+      "source": {
+        "source": "github",
+        "repo": "thehenrylabsdev/apex-skills"
+      },
+      "description": "16 high-leverage engineering skills with <600 token cold-start ceiling, git-pinned cross-session memory, disjoint-seam wave execution, and 4-tier empirical verification.",
+      "homepage": "https://github.com/thehenrylabsdev/apex-skills",
+      "license": "MIT",
+      "category": "engineering",
+      "keywords": [
+        "skills",
+        "agents",
+        "engineering",
+        "tdd",
+        "grilling",
+        "kv-cache",
+        "verification"
+      ]
+    }
+  ]
+}

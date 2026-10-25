@@ -1,0 +1,66 @@
+{
+  "name": "apex-skills",
+  "version": "1.0.0",
+  "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents (2026+).",
+  "type": "module",
+  "author": {
+    "name": "Henry Nguyen",
+    "email": "thehenrylabs.dev@gmail.com",
+    "url": "https://github.com/thehenrylabsdev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thehenrylabsdev/apex-skills.git"
+  },
+  "homepage": "https://github.com/thehenrylabsdev/apex-skills",
+  "license": "MIT",
+  "bin": {
+    "apex-skills": "./dist/src/cli.js"
+  },
+  "exports": {
+    ".": "./dist/src/index.js"
+  },
+  "files": [
+    "dist",
+    "skills",
+    "evals",
+    "docs",
+    "plugin.json",
+    "gemini-extension.json",
+    ".claude-plugin",
+    ".codex-plugin",
+    ".cursor-plugin"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "tsc && node --test dist/tests/*.test.js",
+    "validate": "node src/cli.ts validate",
+    "benchmark": "node src/cli.ts benchmark",
+    "memory-audit": "node src/cli.ts memory-audit",
+    "quality": "bash scripts/check-code-quality.sh"
+  },
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "gemini-cli",
+    "antigravity",
+    "context-engineering",
+    "tdd",
+    "kv-cache",
+    "domain-driven-design"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.2.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.2"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  }
+}

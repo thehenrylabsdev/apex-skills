@@ -1,0 +1,25 @@
+{
+  "name": "apex-skills",
+  "version": "1.0.0",
+  "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents.",
+  "author": {
+    "name": "Henry Nguyen",
+    "url": "https://github.com/thehenrylabsdev"
+  },
+  "homepage": "https://github.com/thehenrylabsdev/apex-skills",
+  "repository": "https://github.com/thehenrylabsdev/apex-skills",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Apex Skills",
+    "shortDescription": "Token-optimal engineering workflows: grilling, seam-TDD, git-pinned memory, disjoint waves, and leaf verification.",
+    "longDescription": "Apex Skills synthesizes the strongest patterns of modern AI engineering with a strict <600 token cold-start budget, commit-pinned semantic memory, and deterministic verification.",
+    "developerName": "Henry Nguyen",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "Run /apex-router to diagnose the optimal engineering workflow for this task",
+      "Grill me on the unblocked design tree frontier and update GLOSSARY.md"
+    ]
+  }
+}

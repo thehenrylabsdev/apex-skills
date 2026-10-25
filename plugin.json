@@ -1,0 +1,13 @@
+{
+  "name": "apex-skills",
+  "version": "1.0.0",
+  "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents.",
+  "author": {
+    "name": "Henry Nguyen",
+    "url": "https://github.com/thehenrylabsdev"
+  },
+  "homepage": "https://github.com/thehenrylabsdev/apex-skills",
+  "repository": "https://github.com/thehenrylabsdev/apex-skills",
+  "license": "MIT",
+  "skills": "./skills/"
+}
