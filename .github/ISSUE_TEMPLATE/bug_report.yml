@@ -1,0 +1,43 @@
+name: Bug or Routing Regression Report
+description: Report a skill routing miss, subagent behavior failure, or deterministic engine issue.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Layer
+      options:
+        - Skill Routing / Trigger Description
+        - Skill Behavioral Adherence (SKILL.md)
+        - MemoryLedgerEngine (memory-audit)
+        - DisjointSeamAnalyzer (wave scheduling)
+        - RuntimeGuards (cache / immutable blocks)
+        - Multi-Harness Plugin Packaging
+    validations:
+      required: true
+
+  - type: input
+    id: harness
+    attributes:
+      label: Agent Harness & Model
+      description: e.g., Claude Code (Opus 4.6), Codex CLI, Cursor, Gemini CLI, Antigravity
+      placeholder: "Claude Code + Claude Opus"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Exact Prompt / Reproduction Steps
+      description: Provide the exact user prompt or CLI invocation that triggered the issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. Actual Behavior
+      description: Which skill or output should have fired vs. what actually happened?
+    validations:
+      required: true

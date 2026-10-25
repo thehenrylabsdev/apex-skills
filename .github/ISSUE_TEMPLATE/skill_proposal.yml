@@ -1,0 +1,38 @@
+name: Counter-Prior Skill Proposal
+description: Propose a new skill or Counter-Prior rule that passes the Behavioral Deletion Test.
+title: "[Proposal]: "
+labels: ["enhancement", "skill-proposal"]
+body:
+  - type: input
+    id: skill_name
+    attributes:
+      label: Proposed Skill Name (must be namespaced `apex-*`)
+      placeholder: "apex-migration"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: invocation_budget
+    attributes:
+      label: Invocation Budget
+      options:
+        - User-Invoked (disable-model-invocation: true -> 0 Cold-Start Token Tax)
+        - Model-Invoked (Must fit inside global <= 600 token Cold-Start Ceiling)
+    validations:
+      required: true
+
+  - type: textarea
+    id: counter_prior
+    attributes:
+      label: Counter-Prior Failure Mode (The Deletion Test)
+      description: What specific mistake does a frontier model systematically make when this skill is absent? (Do not propose standard pre-training tutorials.)
+    validations:
+      required: true
+
+  - type: textarea
+    id: eval_cases
+    attributes:
+      label: Proposed Routing & Verification Eval Cases
+      description: Provide at least 3 natural/understated prompts and 2 negative/forbidden prompts.
+    validations:
+      required: true

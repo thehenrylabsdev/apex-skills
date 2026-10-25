@@ -1,0 +1,44 @@
+name: Apex Skills CI & 4-Tier Verification Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Strict Lint, Typecheck, Tests & 4-Tier Skill Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository (with full history for memory-audit)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint v10 (Zero-Warning Gate)
+        run: npm run lint
+
+      - name: Run TypeScript Compiler (Strict Typecheck Gate)
+        run: npm run typecheck
+
+      - name: Run Automated Unit & Integration Tests
+        run: npm test
+
+      - name: Run 4-Tier Skill Validator & 24/24 Routing Evals
+        run: npm run validate
+
+      - name: Run Commit-Pinned Cross-Session Memory Audit
+        run: npm run memory-audit
