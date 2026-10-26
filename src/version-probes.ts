@@ -1,4 +1,5 @@
 import { execFileSync } from "node:child_process";
+import { isRecord } from "./json-record.js";
 import { canonicalVersion, compareVersionStrings, isStableRelease } from "./semver.js";
 import {
   EMPTY_CONSTRAINTS,
@@ -73,10 +74,6 @@ export function createDefaultProbeIo(): ProbeIo {
     },
   };
   return io;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function parseJson(text: string): unknown {

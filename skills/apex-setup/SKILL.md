@@ -22,3 +22,4 @@ When the user passes `--verify` or asks to check the current setup:
 1. Inspect existing `AGENTS.md` / `CLAUDE.md` (edit the existing file; never create a duplicate if one already exists).
 2. Seed `GLOSSARY.md` (Ubiquitous Language), `CONSTRAINTS.md` (Ratchets), and `DECISIONS.md` (Commit-Pinned Ledger) if missing.
 3. Add a compact `## Apex Context Pointers` block (<= 15 lines) to `AGENTS.md` / `CLAUDE.md` pointing to those three files.
+4. Run `npx apex-skills hooks install` so Claude Code and Cursor block the end of a turn until `npx apex-skills scan` prints `PASS`. Run `npx apex-skills hooks install --global` once on the machine so every later repository is covered before its own bootstrap.

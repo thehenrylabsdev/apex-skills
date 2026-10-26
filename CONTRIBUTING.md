@@ -37,7 +37,7 @@ This executes:
 2. `npx tsc --noEmit` (TypeScript strictest compiler settings)
 3. `npm test` (Automated unit and integration suite)
 4. `npm run validate` (4-Tier Skill Catalog & 32/32 Routing Eval Validator)
-5. `npx apex-skills reuse audit --base <merge-base>` (canonical reuse gate; also run by `npm run quality`)
+5. `npx apex-skills scan --base <merge-base>` (project scan: canonical reuse, credentials, and advisories; also run by `npm run quality`)
 
 ---
 

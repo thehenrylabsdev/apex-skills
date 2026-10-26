@@ -16,6 +16,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - `apex-tdd`, `apex-verify`, `apex-spec`, `apex-waves`, `apex-router`, and `apex-ship` call the gate. Parallel waves put the shared canonical file in `touchedSeams`.
   - Cold-start frontmatter is `342` tokens (`1,365` bytes), still under the `600` token ceiling. Routing evals are `32 / 32`.
 
+- **Project Scan (`apex-skills scan` + `apex-skills hooks install`):**
+  - The same gate runs in every repository. It checks the git diff for a canonical-reuse finding, a credential pattern, and a high or critical npm advisory when an npm manifest changed.
+  - A changed Gradle, Maven, Go, Python, Rust, or Composer manifest runs `osv-scanner`. A missing binary fails the scan.
+  - SonarQube and gitleaks run when `sonar-project.properties`, `.gitleaks.toml`, or `.apex/scan.json` opts in. Docker and MCP are not the gate.
+  - `hooks install` writes a Claude Code Stop hook and a Cursor stop hook. `hooks install --global` covers later repositories on that machine.
+
 ---
 
 ## [1.2.0] - 2026-10-26

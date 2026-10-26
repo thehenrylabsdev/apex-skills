@@ -43,13 +43,13 @@ jobs:
       - name: Run Commit-Pinned Cross-Session Memory Audit
         run: npm run memory-audit
 
-      - name: Run Canonical Reuse Audit
+      - name: Run Project Scan
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             git fetch origin "${{ github.base_ref }}"
-            node dist/src/cli.js reuse audit --base "origin/${{ github.base_ref }}"
+            node dist/src/cli.js scan --base "origin/${{ github.base_ref }}"
           else
-            node dist/src/cli.js reuse audit --base HEAD
+            node dist/src/cli.js scan --base HEAD
           fi
 
       - name: Verify Web App Example (Next.js 16.4.3 Quality Gate)

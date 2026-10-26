@@ -168,7 +168,7 @@ gemini skills install https://github.com/thehenrylabsdev/apex-skills.git --path 
 Run the built-in verification and benchmarking tools locally:
 
 ```bash
-# Run full quality gate (ESLint v10 + tsc --noEmit + unit tests + 4-tier skill validator + reuse audit)
+# Run full quality gate (ESLint v10 + tsc --noEmit + unit tests + 4-tier skill validator + project scan)
 npm run quality
 
 # Validate all 18 skills (YAML, OpenAI sync, <600 token ceiling, Leaf-Guards, 32/32 routing evals)
@@ -179,6 +179,13 @@ npx apex-skills versions resolve --ecosystem npm --name typescript --mode scaffo
 
 # Audit new constants and methods against the canonical reuse index
 npx apex-skills reuse audit --base HEAD
+
+# Scan this repository for reuse findings, credentials, and high or critical advisories
+npx apex-skills scan --base HEAD
+
+# Install the Claude Code and Cursor stop hooks in this repository, or once for every later repository
+npx apex-skills hooks install
+npx apex-skills hooks install --global
 
 # Audit commit-pinned architectural claims in DECISIONS.md and CONSTRAINTS.md against live Git history
 npm run memory-audit

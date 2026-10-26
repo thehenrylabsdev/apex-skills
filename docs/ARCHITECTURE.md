@@ -31,6 +31,12 @@ classDiagram
         +selectCandidateSymbols(baseline, current) ReuseSymbol[]
     }
 
+    class ProjectScan {
+        +runProjectScan(request, io) ScanReport
+        +installProjectHooks(root) string[]
+        +replyForHook(report, input) HookReply
+    }
+
     class FourTierEvalEngine {
         +parseSkillDirectory(skillDirPath) SkillMetadata
         +discoverSkills(skillsRoot) SkillMetadata[]
@@ -86,3 +92,12 @@ Stops a new constant or near-clone method from landing beside an existing symbol
 3. Persist the symbols in a repository SQLite ledger keyed by file content hash. An extractor version bump rebuilds the ledger.
 4. `reuse audit --base <ref>` reports only symbols that are new relative to that ref. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` (`enum-fanout` or `same-body`) fail the audit. The message names the canonical symbol to call.
 5. Retrieval stacks (tree-sitter, LSP, embeddings) can suggest a file. They do not decide the verdict. The hash does.
+
+## 7. `ProjectScan` (`src/scan-run.ts`, `src/scan-hooks.ts`)
+
+Stops an agent from finishing a change in any repository until one local command passes:
+
+1. `scan` reuses the Canonical Reuse Index, then reads added diff lines for credential patterns and audits a changed dependency manifest.
+2. npm manifests run `npm audit`. Other ecosystems run `osv-scanner` against the changed manifest. High and critical advisories fail the scan.
+3. `sonar-scanner` and `gitleaks` run only after the repository opts in. A configured binary that is missing fails the scan.
+4. `hooks install` commits a Claude Code Stop hook and a Cursor stop hook. Claude Code exits `2` and Cursor returns `followup_message`, so the agent continues until the report is `PASS`.

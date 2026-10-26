@@ -2,6 +2,7 @@ import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 import { DatabaseSync, type SQLOutputValue } from "node:sqlite";
+import { isRecord } from "./json-record.js";
 import { readSqlNumber, readSqlString } from "./sql-cells.js";
 import {
   EMPTY_CONSTRAINTS,
@@ -141,10 +142,6 @@ function cellString(value: SQLOutputValue | undefined): string | null {
 
 function cellNumber(value: SQLOutputValue | undefined): number | null {
   return readSqlNumber(value);
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function readStringRecord(value: unknown): Readonly<Record<string, string>> | null {

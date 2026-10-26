@@ -8,6 +8,7 @@ import {
 import { validateSkillCatalog } from "./eval-engine.js";
 import { auditRepositoryMemory } from "./memory-ledger.js";
 import { executeReuseCommand } from "./reuse-cli.js";
+import { executeHooksCommand, executeScanCommand } from "./scan-cli.js";
 import type { RoutingEvalCase } from "./types.js";
 
 function runValidate(repoRoot: string): number {
@@ -101,9 +102,13 @@ async function main(): Promise<void> {
     exitCode = loaded.executeVersionCommand(args.slice(1));
   } else if (command === "reuse") {
     exitCode = executeReuseCommand(args.slice(1));
+  } else if (command === "scan") {
+    exitCode = executeScanCommand(args.slice(1));
+  } else if (command === "hooks") {
+    exitCode = executeHooksCommand(args.slice(1));
   } else {
     process.stderr.write(
-      `Unknown command "${command}". Supported: validate | memory-audit | benchmark | versions | reuse\n`,
+      `Unknown command "${command}". Supported: validate | memory-audit | benchmark | versions | reuse | scan | hooks\n`,
     );
     exitCode = 1;
   }
