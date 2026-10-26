@@ -23,6 +23,7 @@ const SKIP_DIRECTORIES = new Set<string>([
   ".apex",
   "node_modules",
   "dist",
+  "dist-test",
   "build",
   "target",
   "coverage",
