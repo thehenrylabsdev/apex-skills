@@ -3,8 +3,8 @@
 **Token-Optimal, Empirically Verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents (2026+)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Cold-Start Budget](https://img.shields.io/badge/Cold--Start_Tax-256_Tokens_(%3C600_Ceiling)-success)](./docs/BENCHMARK-REPORT.md)
-[![Routing Evals](https://img.shields.io/badge/Routing_Evals-24%2F24_(100%25)-brightgreen)](./evals/routing-benchmark.json)
+[![Cold-Start Budget](https://img.shields.io/badge/Cold--Start_Tax-299_Tokens_(%3C600_Ceiling)-success)](./docs/BENCHMARK-REPORT.md)
+[![Routing Evals](https://img.shields.io/badge/Routing_Evals-28%2F28_(100%25)-brightgreen)](./evals/routing-benchmark.json)
 [![Supply Chain](https://img.shields.io/badge/Runtime_Dependencies-0-blue)](./package.json)
 
 ---
@@ -26,8 +26,8 @@ Reproduce this table anytime by running `npm run benchmark`:
 
 | Metric | `LaurenTan` (`pstack` v0.15.32) | `addyosmani` (`agent-skills` v0.6.13) | `mattpocock` (`skills` v1.3.1) | **`apex-skills` (`v1.0.0`)** |
 | :--- | :--- | :--- | :--- | :--- |
-| **Total Skills (Model vs. User-Invoked)** | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **16 (6 model / 10 user)** |
-| **Cold-Start Token Tax (Turn 0)** | **5,168 tok** (20,669 B) | **5,095 tok** (20,379 B) | **922 tok** (3,688 B) | **256 tok** (1,023 B) (**-95.0%**) |
+| **Total Skills (Model vs. User-Invoked)** | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **17 (7 model / 10 user)** |
+| **Cold-Start Token Tax (Turn 0)** | **5,168 tok** (20,669 B) | **5,095 tok** (20,379 B) | **922 tok** (3,688 B) | **299 tok** (1,195 B) (**-94.2%**) |
 | **Simulated Feature Uncached Input Tokens** | **383,192 tok** (19 fresh agents) | **171,590 tok** (6-phase chain) | **109,500 tok** | **67,650 tok** (Warm KV-Cache reuse) |
 | **Human Turn-Stops per Medium Feature** | **4 stops** | **12 stops** (1-Q/turn + gates) | **5 stops** (unbounded frontier) | **2 stops** (Bounded <=4 Qs + Seam lock) |
 | **Broken Standalone Links (`--skill` Issue #361)** | 62 | 15 (`../../references/*`) | 1 | **0** (100% Self-Contained) |
@@ -67,9 +67,9 @@ flowchart TD
 
 ```mermaid
 flowchart TB
-    subgraph Budget["1. Dual-Budget Context Layer (256 Tokens Cold-Start)"]
+    subgraph Budget["1. Dual-Budget Context Layer (299 Tokens Cold-Start)"]
         direction LR
-        M6["6 Model-Invoked Core Skills (1,023 B / 256 Tokens)<br/>apex-grill | apex-tdd | apex-diagnose<br/>apex-verify | apex-guard | apex-memory"]
+        M6["7 Model-Invoked Core Skills (1,195 B / 299 Tokens)<br/>apex-grill | apex-tdd | apex-diagnose<br/>apex-verify | apex-guard | apex-memory | apex-versions"]
         U10["10 User-Invoked Workflow Skills (0 Cold-Start Tax)<br/>disable-model-invocation: true + allow_implicit_invocation: false<br/>/apex-router | /apex-wayfinder | /apex-spec | /apex-waves | /apex-arena<br/>/apex-statechart | /apex-ship | /apex-retro | /apex-handoff | /apex-setup"]
     end
 
@@ -78,7 +78,8 @@ flowchart TB
         E1["MemoryLedgerEngine (src/memory-ledger.ts)<br/>Verifies [sha:<commit> | scope:<glob>] via git diff <sha>..HEAD"]
         E2["DisjointSeamAnalyzer (src/seam-analyzer.ts)<br/>Enforces Seams_A ∩ Seams_B = ∅ across parallel worktrees"]
         E3["RuntimeGuards (src/runtime-guards.ts)<br/>Prompt-Aware Cache sha256(url+prompt+etag) + Out-of-Band Immutable Hash"]
-        E4["FourTierEvalEngine (src/eval-engine.ts)<br/>Structure + <600 Tok Budget + 24/24 Routing + 4-Repo Benchmark"]
+        E4["FourTierEvalEngine (src/eval-engine.ts)<br/>Structure + <600 Tok Budget + 28/28 Routing + 4-Repo Benchmark"]
+        E5["VersionLedger (src/version-ledger.ts)<br/>Package-manager resolve, SQLite cadence cache, web search only on miss"]
     end
 
     Budget --> Engine
@@ -93,7 +94,7 @@ Because `apex-skills` uses a **flat promoted-only `skills/<name>/SKILL.md` layou
 ### 1. Universal `skills.sh` Installer (Claude Code, Cursor, OpenCode, Windsurf, Devin, Amp)
 
 ```bash
-# Install the complete 16-skill suite:
+# Install the complete 17-skill suite:
 npx skills@latest add thehenrylabsdev/apex-skills
 
 # Or install a single self-contained skill (zero broken ../ links):
@@ -129,9 +130,9 @@ gemini skills install https://github.com/thehenrylabsdev/apex-skills.git --path 
 
 ---
 
-## The 16-Skill Catalog
+## The 17-Skill Catalog
 
-### A. 6 Model-Invoked Core Skills (`256` Tokens Total Always-Loaded Context)
+### A. 7 Model-Invoked Core Skills (`299` Tokens Total Always-Loaded Context)
 
 | Skill | Responsibility & Counter-Prior Guarantee |
 | :--- | :--- |
@@ -141,6 +142,7 @@ gemini skills install https://github.com/thehenrylabsdev/apex-skills.git --path 
 | [`apex-verify`](./skills/apex-verify/SKILL.md) | **Doubt-Driven Two-Axis Leaf Verification:** Passes `ARTIFACT + CONTRACT` while hiding producer `CLAIM`, runs parallel **Spec Axis** and **Standards Axis** reviews, and enforces a hard `LEAF-AGENT GUARD` against $2^N$ subagent recursion. |
 | [`apex-guard`](./skills/apex-guard/SKILL.md) | **OWASP, Core Web Vitals & WCAG 2.2 AA Gate:** Self-contained production verification covering BOLA/IDOR, injection, SSRF, N+1 queries, LCP/INP/CLS, and WCAG 2.2 AA contrast/target-size/reflow. |
 | [`apex-memory`](./skills/apex-memory/SKILL.md) | **Commit-Pinned Semantic Ledger:** Maintains `GLOSSARY.md` (Ubiquitous Language), `CONSTRAINTS.md` (Ratchets), and `DECISIONS.md` (`[sha:<commit> \| scope:<glob>]` claims verified by `npm run memory-audit`). |
+| [`apex-versions`](./skills/apex-versions/SKILL.md) | **Release-Channel Selection:** Resolves the current LTS or stable release through the package manager and a cadence-aware SQLite ledger before scaffolding or adding a dependency. Honors an explicit version pin and leaves installed manifest versions unchanged. |
 
 ### B. 10 User-Invoked Workflow & Orchestration Skills (`0` Cold-Start Token Tax)
 
@@ -167,8 +169,11 @@ Run the built-in verification and benchmarking tools locally:
 # Run full 4-stage quality gate (ESLint v10 + tsc --noEmit + Unit Tests + 4-Tier Skill Validator)
 npm run quality
 
-# Validate all 16 skills (YAML, OpenAI sync, <600 token ceiling, Leaf-Guards, 24/24 routing evals)
+# Validate all 17 skills (YAML, OpenAI sync, <600 token ceiling, Leaf-Guards, 28/28 routing evals)
 npm run validate
+
+# Resolve the current LTS or stable release (package manager, then the local ledger; web search only on a miss)
+npx apex-skills versions resolve --ecosystem npm --name typescript --mode scaffold
 
 # Audit commit-pinned architectural claims in DECISIONS.md and CONSTRAINTS.md against live Git history
 npm run memory-audit

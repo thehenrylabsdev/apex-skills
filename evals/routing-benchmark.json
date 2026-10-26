@@ -166,5 +166,33 @@
     "expectedSkill": "apex-memory",
     "forbiddenSkills": ["apex-guard"],
     "category": "adversarial"
+  },
+  {
+    "id": "versions-01-scaffold-current-release",
+    "prompt": "Pick the current stable or LTS release when scaffolding an app and adding a dependency.",
+    "expectedSkill": "apex-versions",
+    "forbiddenSkills": ["apex-tdd", "apex-guard"],
+    "category": "natural"
+  },
+  {
+    "id": "versions-02-named-version-pin",
+    "prompt": "Honor a named version and keep manifest versions unchanged for this library.",
+    "expectedSkill": "apex-versions",
+    "forbiddenSkills": ["apex-tdd"],
+    "category": "natural"
+  },
+  {
+    "id": "versions-03-adding-dependency",
+    "prompt": "When adding a dependency, pick the current stable or LTS release.",
+    "expectedSkill": "apex-versions",
+    "forbiddenSkills": ["apex-diagnose"],
+    "category": "understated"
+  },
+  {
+    "id": "versions-04-hold-and-select",
+    "prompt": "Keep manifest versions unchanged, and pick the current stable or LTS release when adding a dependency.",
+    "expectedSkill": "apex-versions",
+    "forbiddenSkills": ["apex-guard", "apex-memory"],
+    "category": "adversarial"
   }
 ]

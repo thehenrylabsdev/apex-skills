@@ -83,7 +83,7 @@ function runBenchmark(repoRoot: string): number {
   return 0;
 }
 
-function main(): void {
+async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const command = args[0] ?? "validate";
   const repoRoot = process.cwd();
@@ -95,9 +95,12 @@ function main(): void {
     exitCode = runMemoryAudit(repoRoot);
   } else if (command === "benchmark") {
     exitCode = runBenchmark(repoRoot);
+  } else if (command === "versions") {
+    const loaded = await import("./version-cli.js");
+    exitCode = loaded.executeVersionCommand(args.slice(1));
   } else {
     process.stderr.write(
-      `Unknown command "${command}". Supported: validate | memory-audit | benchmark\n`,
+      `Unknown command "${command}". Supported: validate | memory-audit | benchmark | versions\n`,
     );
     exitCode = 1;
   }
@@ -105,4 +108,4 @@ function main(): void {
   process.exitCode = exitCode;
 }
 
-main();
+void main();

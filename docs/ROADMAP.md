@@ -19,6 +19,10 @@ flowchart LR
 - [x] `RuntimeGuards` (Prompt-aware cache hashing + non-destructive `@immutable` block verification).
 - [x] 4-Tier CI Validator & 4-Repo Head-to-Head Benchmark Suite.
 
+## Milestone `v1.2.0` — Release-Channel Ledger (Completed)
+- [x] `apex-versions` selects the current LTS or stable release for greenfield scaffolds and new dependencies, with explicit pins and manifest holds.
+- [x] SQLite version ledger refreshed from package managers and registries when one observed release cycle has elapsed. Web search runs only after those probes miss.
+
 ---
 
 ## Milestone `v1.1.0` — Automated Worktree Wave Runner & AST Seam Extractor

@@ -25,5 +25,8 @@ Evaluate only at a **Phase Boundary** (never compact mid-phase):
 4. **Depth-1 Leaf Subagent (Tight AFK Scope):** Is the next step a self-contained verification or research probe that needs zero human steering? -> **Spawn a Depth-1 Leaf Subagent.**
 5. **`/compact <focus instruction>` (Lossy Last Resort):** Same repo and harness, relevant history, but approaching the 150k Smart-Zone ceiling -> **Compact with an explicit retention instruction.**
 
+## Release Channel
+Scaffolding a runtime or adding a dependency: Call the Skill tool with `apex-versions` before writing a version into a manifest.
+
 ## Output Format
 State: (1) Current Quadrant, (2) Recommended Next Skill/Command, and (3) Exact Phase-Boundary Action.

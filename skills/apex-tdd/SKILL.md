@@ -23,6 +23,9 @@ Build software through **Vertical Tracer Bullets** tested strictly at **Pre-Agre
 | *"I'll mock the internal repository class for speed."* | Mocking internal collaborators couples tests to shallow implementation details. Test at the public seam. |
 | *"Let me clean up this adjacent class while I'm here."* | Mid-loop refactoring pollutes diffs and breaks mental invariants. Finish Green first. |
 
+## Release Channel
+When a slice scaffolds a runtime or introduces a dependency, Call the Skill tool with `apex-versions` and install only the version it selects. An explicit user version and an existing manifest entry stay as written.
+
 ## Verification Gate
 - [ ] Every new behavior was observed failing (`RED`) before the implementation line was written.
 - [ ] All tests target public module seams with zero unverified internal mocks.

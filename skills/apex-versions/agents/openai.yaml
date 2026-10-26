@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Versions"
+  short_description: "Resolve the current stable or LTS release and keep manifest versions unchanged."
+policy:
+  allow_implicit_invocation: true

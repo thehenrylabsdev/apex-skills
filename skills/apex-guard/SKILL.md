@@ -12,6 +12,7 @@ Enforce production-grade non-functional invariants across **Security (OWASP)**, 
 - [ ] **AuthN / AuthZ (BOLA/IDOR):** Verify resource ownership at the data-access seam on every mutation and read endpoint; never trust client-supplied tenant or role IDs.
 - [ ] **SSRF & Egress:** Validate outbound URLs against an allowlist and block RFC1918/link-local metadata IPs (`169.254.169.254`).
 - [ ] **Secrets & Crypto:** Zero hardcoded secrets or tokens in source/logs; constant-time signature comparisons (`timingSafeEqual`).
+- [ ] **Dependency Channel:** A dependency added in this change uses the release from Call the Skill tool with `apex-versions`. An existing manifest version stays unchanged unless the user asked to upgrade it.
 
 ## 2. Performance & Database Gate (Core Web Vitals & Query Plans)
 - [ ] **Query Complexity:** Eliminate N+1 query loops (batch via `WHERE id IN (...)` or DataLoader); verify composite index coverage on filter/sort columns.

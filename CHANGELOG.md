@@ -5,6 +5,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [1.2.0] - 2026-10-26
+
+### Added
+
+- **Release-Channel Selection (`apex-versions` + `apex-skills versions`):**
+  - Model-invoked skill `apex-versions` selects the current LTS release when one is still supported, otherwise the newest stable release, before scaffolding a stack or adding a dependency.
+  - Explicit user versions are pins. Versions already in the manifest stay unchanged unless the user asks to add, replace, or upgrade them.
+  - `versions resolve` reads a SQLite ledger first. A record younger than one observed stable release cycle is reused. A missing or cadence-expired record is refreshed via the ecosystem package manager or registry (`npm`, Maven Central, PyPI, crates.io, Go, the Node.js index, Adoptium, the Rust stable channel).
+  - Host toolchain constraints (`--host`) walk back to the newest stable release whose declared peers, engines, and developed-against ranges accept the language and framework already chosen.
+  - A web search runs only when the resolver returns `needs-websearch`. `versions record` persists that result until the next release cycle.
+  - Cold-start frontmatter is `299` tokens (`1,195` bytes), still under the `600` token ceiling. Routing evals are `28 / 28`.
+
+---
+
 ## [1.1.0] - 2026-10-25
 
 ### Added

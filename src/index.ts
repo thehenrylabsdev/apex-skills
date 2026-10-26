@@ -4,3 +4,8 @@ export * from "./seam-analyzer.js";
 export * from "./runtime-guards.js";
 export * from "./eval-engine.js";
 export * from "./benchmark.js";
+export * from "./semver.js";
+export * from "./version-policy.js";
+export * from "./version-ledger.js";
+export * from "./version-probes.js";
+export * from "./version-cli.js";
