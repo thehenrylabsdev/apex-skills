@@ -1,6 +1,6 @@
 # Deterministic Engine Architecture (`docs/ARCHITECTURE.md`)
 
-Unlike traditional Agent Skills repositories that rely solely on prose instructions, **`apex-skills`** pairs its 16-skill catalog with a zero-dependency, strictly typed TypeScript verification and runtime engine (`src/`).
+Unlike traditional Agent Skills repositories that rely solely on prose instructions, **`apex-skills`** pairs its 17-skill catalog with a zero-dependency, strictly typed TypeScript verification and runtime engine (`src/`).
 
 ```mermaid
 classDiagram
@@ -58,5 +58,15 @@ Replaces fragile bash hooks with deterministic, non-destructive cryptographic ve
 Enforces 4 automated verification gates on every commit:
 - **Tier 1 (Structure, Invocation Graph & Portability):** Checks YAML frontmatter, `agents/openai.yaml` policy parity, zero `../` links, valid `Skill` tool targets (`disableModelInvocation === false`), and mandatory `LEAF-AGENT GUARD` clauses.
 - **Tier 2 (Token Budget Ratchets):** Enforces `<= 600` tokens total cold-start frontmatter and `<= 1,800` tokens per skill file.
-- **Tier 3 (Namespace Collision & 24/24 Adversarial Routing):** Verifies zero collisions with built-in harness commands and `100%` Rank-1 routing accuracy on `evals/routing-benchmark.json`.
+- **Tier 3 (Namespace Collision & 28/28 Adversarial Routing):** Verifies zero collisions with built-in harness commands and `100%` Rank-1 routing accuracy on `evals/routing-benchmark.json`.
+
+## 5. `VersionLedger` (`src/version-ledger.ts`)
+
+Stops new scaffolds and new dependencies from inheriting a training-cutoff release:
+
+1. **Explicit Version Pin** and **Manifest Hold** return immediately, with no registry call.
+2. A SQLite **Version Ledger** entry younger than one observed stable release cycle is authoritative.
+3. A missing or cadence-expired entry is refreshed through the ecosystem package manager (`npm`, `go`, `uv`) or the registry endpoint behind it (Maven Central, PyPI, crates.io, the Node.js index, Adoptium, the Rust stable channel).
+4. Host language and framework versions already chosen filter that channel: the recommended release is kept when its declared peers, engines, and developed-against constraints accept them, otherwise the newest older stable release that does.
+5. A web search is requested only when those probes return nothing. `versions record` writes the search result back so the next resolve hits the ledger until the next release cycle.
 - **Tier 4 (`src/benchmark.ts`):** Computes reproducible cross-repository metrics across `LaurenTan`, `addyosmani`, `mattpocock`, and `apex-skills`.

@@ -15,8 +15,8 @@ npm run benchmark
 | Metric | `LaurenTan` (`pstack`) | `addyosmani` (`agent-skills`) | `mattpocock` (`skills`) | **`apex-skills` (`v1.0.0`)** |
 | :--- | :--- | :--- | :--- | :--- |
 | Total Markdown Files / Lines | 139 files / 8,263 lines | 144 files / 23,005 lines | 133 files / 7,956 lines | **24 files / 1,012 lines** |
-| Total Skills (Model vs. User-Invoked) | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **16 (6 model / 10 user)** |
-| **Cold-Start Token Tax (Turn 0)** | **5,168 tok** (20,669 B) | **5,095 tok** (20,379 B) | **922 tok** (3,688 B) | **256 tok** (1,023 B) |
+| Total Skills (Model vs. User-Invoked) | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **17 (7 model / 10 user)** |
+| **Cold-Start Token Tax (Turn 0)** | **5,168 tok** (20,669 B) | **5,095 tok** (20,379 B) | **922 tok** (3,688 B) | **299 tok** (1,195 B) |
 | **Simulated Feature Uncached Input Tokens** | **383,192 tok** | **171,590 tok** | **109,500 tok** | **67,650 tok** |
 | **Human Turn-Stops per Medium Feature** | **4 stops** | **12 stops** | **5 stops** | **2 stops** |
 | Broken Standalone Links (`--skill` Issue #361) | 62 | 15 | 1 | **0** |
@@ -36,7 +36,7 @@ $$T_{\text{cold}} = \left\lceil \frac{1}{4} \left( \sum_{s \in S_{\text{model}}}
 - **`LaurenTan`:** Only 1 skill (`poteto-mode`) is model-invoked (`307` B), but its description routes almost every engineering prompt directly into `skills/poteto-mode/SKILL.md` (`20,362` B) on Turn 1 $\implies$ **$5,168$ tokens**.
 - **`addyosmani`:** All 25 skills are model-invoked (`9,933` B frontmatter) and `hooks/session-start.sh` injects `skills/using-agent-skills/SKILL.md` (`10,446` B) on session start $\implies$ **$5,095$ tokens**.
 - **`mattpocock`:** 15 model-invoked skills (`3,688` B) and 23 user-invoked skills (`0` B) $\implies$ **$922$ tokens**.
-- **`apex-skills`:** 6 model-invoked skills (`1,023` B) and 10 user-invoked skills (`0` B) $\implies$ **$256$ tokens** (**72.2% lower than `mattpocock` and 95.0% lower than `LaurenTan` & `addyosmani`**).
+- **`apex-skills`:** 7 model-invoked skills (`1,195` B) and 10 user-invoked skills (`0` B) $\implies$ **$299$ tokens** (**67.6% lower than `mattpocock` and 94.2% lower than `LaurenTan` & `addyosmani`**).
 
 ---
 

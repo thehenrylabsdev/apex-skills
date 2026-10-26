@@ -10,7 +10,7 @@ Keep this file under `< 350` tokens. Do not copy directory trees or `package.jso
 
 ## Non-Negotiable Engineering Rules
 1. **Zero Suppressions:** Never use `any`, `@ts-ignore`, `@ts-expect-error`, or `eslint-disable`. Fix root causes cleanly.
-2. **Skill Invocation Invariant:** Only model-invoked skills (`apex-grill`, `apex-tdd`, `apex-diagnose`, `apex-verify`, `apex-guard`, `apex-memory`) may be called via `Call the Skill tool with "<name>"`. Never call user-invoked (`disable-model-invocation: true`) skills via the Skill tool.
+2. **Skill Invocation Invariant:** Only model-invoked skills (`apex-grill`, `apex-tdd`, `apex-diagnose`, `apex-verify`, `apex-guard`, `apex-memory`, `apex-versions`) may be called via `Call the Skill tool with "<name>"`. Never call user-invoked (`disable-model-invocation: true`) skills via the Skill tool.
 3. **Quality Gate:** Run `npm run quality` (`eslint`, `tsc --noEmit`, unit tests, and 4-tier skill validator) before completing any change.
 
 ## Design System Governance

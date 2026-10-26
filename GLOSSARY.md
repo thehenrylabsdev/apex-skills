@@ -14,3 +14,9 @@ This dictionary defines the core domain concepts of **Apex Skills** (**What & Wh
 - **Disjoint-Seam Wave:** A parallel execution batch of tasks mathematically verified to touch non-overlapping file/seam scopes ($\text{Seams}_A \cap \text{Seams}_B = \emptyset$), eliminating multi-agent delivery race conditions.
 - **Warm KV-Cache Reuse:** Routing review feedback back to the existing implementer context that already holds the codebase prefix in its KV-Cache rather than spawning a cold subagent from scratch.
 - **Commit-Pinned Memory Ledger:** Cross-session architectural claims in `DECISIONS.md` and `CONSTRAINTS.md` bound to `[sha:<commit> | scope:<glob>]` so `git diff` deterministically flags stale memory (`DRIFTED`) when underlying code changes.
+- **Release Channel:** The publication line used for a new install: the newest long-term-support release whose support window is still open, otherwise the newest stable release.
+- **Version Ledger:** A local record of a package's release channel, publish cadence, support window, and declared host constraints, reused until one observed stable release cycle has elapsed.
+- **Cadence Expiry:** The moment a ledger entry is at least one observed stable release interval old. The entry is refreshed from the package manager or registry before it is trusted again.
+- **Explicit Version Pin:** A version the user named in the request. It is installed as written, ahead of release-channel selection.
+- **Manifest Hold:** A version already recorded in the project manifest. It stays unchanged unless the user asks to add, replace, or upgrade that package.
+- **Host Compatibility:** A candidate release is admissible when every declared peer, engine, and developed-against constraint accepts the language and framework versions already chosen. A host the package does not mention is unconstrained.
