@@ -187,6 +187,11 @@ npx apex-skills scan --base HEAD
 npx apex-skills hooks install
 npx apex-skills hooks install --global
 
+# Optional local depth scan before a pull request. Requires Docker.
+# Gitleaks reads git history, Semgrep runs OWASP Top 10 rules, Trivy reports high and critical advisories.
+bash scripts/pre-pr-docker.sh
+bash scripts/pre-pr-docker.sh /path/to/another/checkout
+
 # Audit commit-pinned architectural claims in DECISIONS.md and CONSTRAINTS.md against live Git history
 npm run memory-audit
 

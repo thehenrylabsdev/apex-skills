@@ -22,6 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - SonarQube and gitleaks run when `sonar-project.properties`, `.gitleaks.toml`, or `.apex/scan.json` opts in. Docker and MCP are not the gate.
   - `hooks install` writes a Claude Code Stop hook and a Cursor stop hook. `hooks install --global` covers later repositories on that machine. CI runs the same command.
   - Enum fan-out enters the reuse floor at 8 normalized tokens. A same-body near-clone stays at 12 normalized tokens and 2 significant tokens.
+  - `scripts/pre-pr-docker.sh` runs an optional local depth scan from `docker-compose.quality.yml`. Gitleaks `v8.30.1` reads git history, Semgrep `1.181.1` runs the OWASP Top 10 rules with metrics off, and Trivy `0.76.1` reports high and critical advisories for the whole checkout. Docker is not the agent gate.
 
 ---
 
