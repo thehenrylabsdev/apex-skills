@@ -14,7 +14,7 @@ Run the final production readiness verification and produce a high-signal Pull R
 2. **Memory & Constraint Audit:** Call the Skill tool with `apex-memory` (or run `npx apex-skills memory-audit`) to confirm `CONSTRAINTS.md` ratchets and `DECISIONS.md` commit pins are up to date.
 3. **Two-Axis & Production Guard:** Call the Skill tool with `apex-verify` and `apex-guard` (`LEAF-AGENT GUARD` enforced on all review subagents) to confirm Spec compliance, Standards adherence, OWASP security, and CWV/WCAG thresholds.
 4. **Canonical Reuse Gate:** Run `npx apex-skills reuse audit --base <release-base>`. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` block the release. Call the Skill tool with `apex-reuse` to repair each finding.
-5. **Project Scan:** Run `npx apex-skills scan --base <release-base>` in this repository. A credential, a high or critical advisory, a canonical-reuse finding, or a failing opted-in adapter blocks the release.
+5. **Project Scan:** Run `npx apex-skills scan --base <release-base>` in this repository. A canonical-reuse finding, a copied token block, a credential, a dangerous sink, a missing lockfile, a high or critical advisory, or a failing opted-in adapter blocks the release.
 
 ## Visual PR Body Template
 

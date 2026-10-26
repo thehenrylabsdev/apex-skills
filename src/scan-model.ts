@@ -1,4 +1,4 @@
-export type ScanCheckId = "reuse" | "secrets" | "cve" | "adapter";
+export type ScanCheckId = "reuse" | "clones" | "secrets" | "security" | "cve" | "adapter";
 
 export type ScanCheckStatus = "pass" | "fail" | "unavailable";
 

@@ -176,7 +176,7 @@ function collectMethodFindings(
 ): void {
   if (
     candidate.bodyHash === null ||
-    candidate.tokenCount < options.minBodyTokens ||
+    candidate.tokenCount < options.minFanoutTokens ||
     candidate.significantTokens < options.minSignificantTokens
   ) {
     return;
@@ -186,12 +186,16 @@ function collectMethodFindings(
       continue;
     }
     if (
-      other.tokenCount < options.minBodyTokens ||
+      other.tokenCount < options.minFanoutTokens ||
       other.significantTokens < options.minSignificantTokens
     ) {
       continue;
     }
     const sameTypes = sameParameterTypes(candidate.parameterTypes, other.parameterTypes);
+    const minimum = sameTypes ? options.minBodyTokens : options.minFanoutTokens;
+    if (candidate.tokenCount < minimum || other.tokenCount < minimum) {
+      continue;
+    }
     pushPair(
       candidate,
       other,

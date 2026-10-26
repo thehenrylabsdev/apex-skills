@@ -38,6 +38,7 @@ export interface ReuseFinding {
 
 export interface ReuseAuditOptions {
   readonly minBodyTokens: number;
+  readonly minFanoutTokens: number;
   readonly minSignificantTokens: number;
   readonly minLiteralLength: number;
   readonly rawLiteralMinLength: number;
@@ -45,6 +46,7 @@ export interface ReuseAuditOptions {
 
 export const DEFAULT_REUSE_AUDIT_OPTIONS: ReuseAuditOptions = {
   minBodyTokens: 12,
+  minFanoutTokens: 8,
   minSignificantTokens: 2,
   minLiteralLength: 4,
   rawLiteralMinLength: 12,

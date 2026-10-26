@@ -18,6 +18,8 @@ export * from "./reuse-cli.js";
 export * from "./json-record.js";
 export * from "./scan-model.js";
 export * from "./scan-secrets.js";
+export * from "./scan-security.js";
+export * from "./scan-clones.js";
 export * from "./scan-diff.js";
 export * from "./scan-cve.js";
 export * from "./scan-adapters.js";

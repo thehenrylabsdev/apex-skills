@@ -25,7 +25,7 @@ When the report names a canonical symbol, call that symbol. When the reason is `
 npx apex-skills reuse index
 ```
 
-The index covers Java, Kotlin, TypeScript, JavaScript, and Python. It stores string constants, raw domain literals, and brace or `def` method bodies. A method joins the clone floor at 12 normalized tokens with 2 structural tokens, so a one-line getter stays out. Test paths are excluded. A literal that contains a space, slash, or colon stays out of the literal gate. Embeddings stay off the gate: enum fan-out is a hash match, not a nearest-neighbor guess.
+The index covers Java, Kotlin, TypeScript, JavaScript, and Python. It stores string constants, raw domain literals, and brace or `def` method bodies. A same-body clone joins at 12 normalized tokens with 2 structural tokens, so a one-line getter stays out. Enum fan-out joins at 8 normalized tokens. Test paths are excluded. A literal that contains a space, slash, or colon stays out of the literal gate. Embeddings stay off the gate: enum fan-out is a hash match, not a nearest-neighbor guess.
 
 ## Anti-Rationalization
 

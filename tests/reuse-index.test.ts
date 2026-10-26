@@ -103,6 +103,22 @@ void describe("Canonical reuse index", () => {
     assert.equal(literalFinding.canonical.name, "ORDER_CREATED");
   });
 
+  void it("flags a one-line enum fan-out and ignores a getter", () => {
+    const source = (type: string, flag: string): string =>
+      `class Handler { Result handle(${type} status) { return service.execute(status, ${flag}); } String id() { return this.id; } }`;
+    const left = extractReuseSymbols("src/OrderHandler.java", source("OrderStatus", "true"));
+    const right = extractReuseSymbols("src/PaymentHandler.java", source("PaymentStatus", "false"));
+    const report = auditReuse(right, [...left, ...right], DEFAULT_REUSE_AUDIT_OPTIONS);
+    const clones = report.findings.filter((finding) => finding.code === "NEAR_CLONE");
+    assert.equal(clones.length, 1);
+    const clone = clones[0];
+    if (clone === undefined) {
+      throw new Error("expected an enum fan-out");
+    }
+    assert.equal(clone.reason, "enum-fanout");
+    assert.equal(clone.duplicate.name, "handle");
+  });
+
   void it("does not flag a method whose body actually differs", () => {
     const left = extractReuseSymbols(
       "src/A.java",

@@ -139,6 +139,7 @@ function parseReuseArgs(args: readonly string[]): ParsedReuseArgs | null {
     includeTests,
     options: {
       minBodyTokens,
+      minFanoutTokens: DEFAULT_REUSE_AUDIT_OPTIONS.minFanoutTokens,
       minSignificantTokens,
       minLiteralLength,
       rawLiteralMinLength,

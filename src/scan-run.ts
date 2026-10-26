@@ -1,7 +1,9 @@
 import path from "node:path";
 import { evaluateAdapters } from "./scan-adapters.js";
+import { findCloneFindings } from "./scan-clones.js";
 import { evaluateCve } from "./scan-cve.js";
 import { readChangeSet } from "./scan-diff.js";
+import { findSecurityFindings } from "./scan-security.js";
 import { parseHookInput } from "./scan-hooks.js";
 import type { AddedLine, ScanCheck, ScanIo, ScanReport } from "./scan-model.js";
 import { findSecretFindings } from "./scan-secrets.js";
@@ -23,7 +25,9 @@ export function runProjectScan(request: ScanRequest, io: ScanIo): ScanReport {
   const change = readChangeSet(root, base, io);
   const checks: ScanCheck[] = [
     reuseCheck(root, base),
+    cloneCheck(root, change.added),
     secretCheck(change.added),
+    securityCheck(change.added),
     evaluateCve(root, change.files, io),
     evaluateAdapters(root, io),
   ];
@@ -66,6 +70,31 @@ function reuseCheck(root: string, base: string): ScanCheck {
     status: "pass",
     summary: `${report.candidateCount} new symbol(s) checked against ${report.poolCount}.`,
   };
+}
+
+function cloneCheck(root: string, lines: readonly AddedLine[]): ScanCheck {
+  const findings = findCloneFindings(root, lines);
+  if (findings.length === 0) {
+    return { id: "clones", status: "pass", summary: "No copied token block in the diff." };
+  }
+  const details = findings
+    .map(
+      (finding) =>
+        `${finding.file}:${finding.line} copies ${finding.otherFile}:${finding.otherLine}. Call the existing block.`,
+    )
+    .join(" ");
+  return { id: "clones", status: "fail", summary: details };
+}
+
+function securityCheck(lines: readonly AddedLine[]): ScanCheck {
+  const findings = findSecurityFindings(lines).slice(0, 50);
+  if (findings.length === 0) {
+    return { id: "security", status: "pass", summary: "No dangerous sink in the diff." };
+  }
+  const details = findings
+    .map((finding) => `${finding.file}:${finding.line} ${finding.rule}. ${finding.summary}`)
+    .join(" ");
+  return { id: "security", status: "fail", summary: details };
 }
 
 function secretCheck(lines: readonly AddedLine[]): ScanCheck {

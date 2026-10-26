@@ -20,7 +20,7 @@ flowchart LR
 - [x] 4-Tier CI Validator & 4-Repo Head-to-Head Benchmark Suite.
 
 ## Milestone `v1.4.0` — Project Scan (Completed)
-- [x] `apex-skills scan` is the gate for every repository: canonical reuse, credentials, and high or critical advisories on a changed manifest.
+- [x] `apex-skills scan` is the gate for every repository: canonical reuse, copied token blocks, credentials, dangerous sinks, a lockfile beside a changed manifest, and high or critical advisories on resolved versions.
 - [x] `apex-skills hooks install` blocks Claude Code and Cursor from ending a turn until the scan passes. `--global` covers later repositories on that machine.
 
 ## Milestone `v1.3.0` — Canonical Reuse Index (Completed)

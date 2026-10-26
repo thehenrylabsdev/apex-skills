@@ -1,4 +1,4 @@
-import { readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import type { AddedLine, ScanIo } from "./scan-model.js";
 
@@ -8,7 +8,29 @@ const NPM_MANIFEST =
   /(?:^|\/)(?:package\.json|package-lock\.json|npm-shrinkwrap\.json)$/;
 
 const OSV_MANIFEST =
-  /(?:^|\/)(?:pom\.xml|build\.gradle(?:\.kts)?|go\.mod|go\.sum|requirements\.txt|poetry\.lock|Cargo\.lock|Cargo\.toml|pyproject\.toml|composer\.lock|Gemfile\.lock)$/;
+  /(?:^|\/)(?:pom\.xml|build\.gradle(?:\.kts)?|go\.mod|go\.sum|requirements\.txt|poetry\.lock|Cargo\.lock|Cargo\.toml|pyproject\.toml|composer\.lock|composer\.json|Gemfile(?:\.lock)?|packages\.lock\.json|Package\.swift|pubspec\.yaml|[^/]+\.csproj)$/;
+
+const LOCKFILE =
+  /(?:^|\/)(?:go\.sum|Cargo\.lock|poetry\.lock|uv\.lock|composer\.lock|packages\.lock\.json|Gemfile\.lock)$/;
+
+const UNLOCKED_MANIFEST =
+  /(?:^|\/)(?:pom\.xml|build\.gradle(?:\.kts)?|go\.mod|requirements\.txt|pyproject\.toml|Cargo\.toml|composer\.json|Gemfile|Package\.swift|pubspec\.yaml|[^/]+\.csproj)$/;
+
+export const LOCK = {
+  gradle: "gradle.lockfile",
+  goSum: "go.sum",
+  cargo: "Cargo.lock",
+  poetry: "poetry.lock",
+  uv: "uv.lock",
+  composer: "composer.lock",
+  nuget: "packages.lock.json",
+  gemfile: "Gemfile.lock",
+  pnpm: "pnpm-lock.yaml",
+  yarn: "yarn.lock",
+  npm: "package-lock.json",
+} as const;
+
+const LOCK_NAMES = Object.values(LOCK);
 
 export function parseUnifiedDiff(diff: string): readonly AddedLine[] {
   const added: AddedLine[] = [];
@@ -62,6 +84,19 @@ export function isNpmManifest(file: string): boolean {
 
 export function isOsvManifest(file: string): boolean {
   return matchesManifest(file, OSV_MANIFEST);
+}
+
+export function isAdvisoryLockfile(file: string): boolean {
+  return matchesManifest(file, LOCKFILE);
+}
+
+export function isUnlockedManifest(file: string): boolean {
+  return matchesManifest(file, UNLOCKED_MANIFEST);
+}
+
+export function manifestHasLock(root: string, file: string): boolean {
+  const directory = path.join(root, path.posix.dirname(file));
+  return LOCK_NAMES.some((name) => existsSync(path.join(directory, name)));
 }
 
 function matchesManifest(file: string, expression: RegExp): boolean {

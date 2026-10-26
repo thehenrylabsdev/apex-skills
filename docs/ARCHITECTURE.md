@@ -90,14 +90,14 @@ Stops a new constant or near-clone method from landing beside an existing symbol
 1. Extract string constants, domain literals, and method bodies from Java, Kotlin, TypeScript, JavaScript, and Python.
 2. Normalize each method body: comments drop, identifiers become one token, literals collapse, control-flow keywords stay. Hash the token sequence.
 3. Persist the symbols in a repository SQLite ledger keyed by file content hash. An extractor version bump rebuilds the ledger.
-4. `reuse audit --base <ref>` reports only symbols that are new relative to that ref. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` (`enum-fanout` or `same-body`) fail the audit. The message names the canonical symbol to call.
+4. `reuse audit --base <ref>` reports only symbols that are new relative to that ref. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` (`enum-fanout` or `same-body`) fail the audit. The message names the canonical symbol to call. Same-body clones enter at 12 normalized tokens. Enum fan-out enters at 8.
 5. Retrieval stacks (tree-sitter, LSP, embeddings) can suggest a file. They do not decide the verdict. The hash does.
 
 ## 7. `ProjectScan` (`src/scan-run.ts`, `src/scan-hooks.ts`)
 
 Stops an agent from finishing a change in any repository until one local command passes:
 
-1. `scan` reuses the Canonical Reuse Index, then reads added diff lines for credential patterns and audits a changed dependency manifest.
-2. npm manifests run `npm audit`. Other ecosystems run `osv-scanner` against the changed manifest. High and critical advisories fail the scan.
+1. `scan` reuses the Canonical Reuse Index, then reads added diff lines for copied token blocks, credential patterns, and dangerous sinks, and audits a changed dependency manifest.
+2. npm manifests run `npm audit` at high and critical. An unlocked Gradle, Maven, Go, Rust, Python, Composer, NuGet, Ruby, or Swift manifest fails until a lockfile sits beside it. Resolved Go, Rust, Python, Composer, NuGet, and Ruby versions are queried at `api.osv.dev`. An advisory, or an unreachable query, fails the scan.
 3. `sonar-scanner` and `gitleaks` run only after the repository opts in. A configured binary that is missing fails the scan.
 4. `hooks install` commits a Claude Code Stop hook and a Cursor stop hook. Claude Code exits `2` and Cursor returns `followup_message`, so the agent continues until the report is `PASS`.

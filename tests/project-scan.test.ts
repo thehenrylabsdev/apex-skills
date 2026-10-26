@@ -5,7 +5,9 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, it } from "node:test";
 import { evaluateAdapters } from "../src/scan-adapters.js";
-import { evaluateCve, parseNpmAudit } from "../src/scan-cve.js";
+import { matchCloneWindows } from "../src/scan-clones.js";
+import { evaluateCve, parseNpmAudit, readOsvIds } from "../src/scan-cve.js";
+import { findSecurityFindings } from "../src/scan-security.js";
 import { parseUnifiedDiff } from "../src/scan-diff.js";
 import {
   HOOK_SCRIPT,
@@ -92,10 +94,56 @@ void describe("Project scan", () => {
     }
   });
 
-  void it("blocks a changed Gradle manifest when osv-scanner is absent", () => {
+  void it("blocks a changed Gradle manifest until a lockfile exists", () => {
     const check = evaluateCve("/tmp/apex-scan-missing", ["backend/build.gradle.kts"], fakeIo("", 0));
-    assert.equal(check.status, "unavailable");
-    assert.match(check.summary, /osv-scanner/);
+    assert.equal(check.status, "fail");
+    assert.match(check.summary, /lockfile/);
+  });
+
+  void it("reads OSV advisories for a Go lockfile", () => {
+    assert.deepEqual(
+      readOsvIds(JSON.stringify({ results: [{ vulns: [{ id: "GO-2026-0001" }] }] })),
+      ["GO-2026-0001"],
+    );
+    const root = mkdtempSync(path.join(tmpdir(), "apex-osv-"));
+    try {
+      writeFileSync(path.join(root, "go.sum"), "example.com/order v1.2.3 h1:abc\n");
+      const failed = evaluateCve(root, ["go.sum"], fakeIo(
+        JSON.stringify({ results: [{ vulns: [{ id: "GO-2026-0001" }] }] }),
+        0,
+      ));
+      assert.equal(failed.status, "fail");
+      assert.match(failed.summary, /GO-2026-0001/);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
+
+  void it("flags a dangerous sink and a copied token block", () => {
+    const sinks = findSecurityFindings([
+      { file: "src/App.ts", line: 3, text: "element.innerHTML = input;" },
+      { file: "README.md", line: 1, text: "element.innerHTML = input;" },
+    ]);
+    assert.equal(sinks.length, 1);
+    assert.equal(sinks[0]?.rule, "html-injection");
+    const body = [
+      "func Settle(order Order) Result {",
+      "if order.Empty() { return Result{Code: Missing} }",
+      "receipt := ledger.Post(order.Amount)",
+      "audit.Record(order.Id, receipt.Number)",
+      "notify.Customer(order.Owner)",
+      "return Result{Code: Settled, Receipt: receipt}",
+      "}",
+    ].join("\n");
+    const clones = matchCloneWindows(
+      [
+        { file: "src/order.go", text: body },
+        { file: "src/payment.go", text: body },
+      ],
+      new Set(["src/payment.go:1"]),
+    );
+    assert.equal(clones.length > 0, true);
+    assert.equal(clones[0]?.otherFile, "src/order.go");
   });
 
   void it("fails a configured adapter whose binary is missing", () => {

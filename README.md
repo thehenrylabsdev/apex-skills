@@ -180,7 +180,7 @@ npx apex-skills versions resolve --ecosystem npm --name typescript --mode scaffo
 # Audit new constants and methods against the canonical reuse index
 npx apex-skills reuse audit --base HEAD
 
-# Scan this repository for reuse findings, credentials, and high or critical advisories
+# Scan the diff for reuse, copied blocks, credentials, dangerous sinks, and advisories
 npx apex-skills scan --base HEAD
 
 # Install the Claude Code and Cursor stop hooks in this repository, or once for every later repository
