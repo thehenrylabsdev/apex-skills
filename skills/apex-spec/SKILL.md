@@ -15,6 +15,7 @@ Transform clarified requirements into a high-density engineering specification t
    Include only load-bearing sections (zero filler prose):
    - **Problem & Goal:** 2-3 sentences using `GLOSSARY.md` Ubiquitous Language.
    - **Public Seam Contracts:** Exact TypeScript/language signatures, HTTP/IPC schemas, and error types at module boundaries (Deep Modules: narrow interface, hidden internals).
+   - **Canonical Symbols:** Constants and methods this slice calls. A new method takes its varying input type or enum as a parameter. When the slice introduces a constant or method, Call the Skill tool with `apex-reuse` before the seam is locked.
    - **State & Invariant Rules:** Preconditions, postconditions, and concurrency constraints.
    - **Verification Matrix:** Exact seam-level test scenarios (Red -> Green vertical slices) and `CONSTRAINTS.md` ratchet targets.
    - **Explicit Out-of-Scope:** What this spec deliberately does not build.

@@ -11,7 +11,7 @@ Every skill belongs to one of two invocation budgets:
 1. **Model-Invoked Core Skills (`disable-model-invocation` omitted):**
    - Reachable autonomously by the model or explicitly by the user.
    - Its YAML `description` is injected into the active context window on every turn.
-   - **Rule:** Only create a model-invoked skill for high-frequency inner-loop disciplines (`apex-grill`, `apex-tdd`, `apex-diagnose`, `apex-verify`, `apex-guard`, `apex-memory`, `apex-versions`).
+   - **Rule:** Only create a model-invoked skill for high-frequency inner-loop disciplines (`apex-grill`, `apex-tdd`, `apex-diagnose`, `apex-verify`, `apex-guard`, `apex-memory`, `apex-versions`, `apex-reuse`).
 2. **User-Invoked Workflow Skills (`disable-model-invocation: true`):**
    - Reachable **only** when the human explicitly invokes `/apex-<name>`.
    - Zero always-loaded context cost (`0` tokens at Turn 0).

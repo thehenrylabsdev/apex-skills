@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "hooks/apex-scan.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -27,6 +27,8 @@ Evaluate only at a **Phase Boundary** (never compact mid-phase):
 
 ## Release Channel
 Scaffolding a runtime or adding a dependency: Call the Skill tool with `apex-versions` before writing a version into a manifest.
+Adding a constant, string literal, or method: Call the Skill tool with `apex-reuse` before the declaration.
+Before ending a change in any repository, run `npx apex-skills scan`. `hooks install` makes Claude Code and Cursor run that command on stop.
 
 ## Output Format
 State: (1) Current Quadrant, (2) Recommended Next Skill/Command, and (3) Exact Phase-Boundary Action.
