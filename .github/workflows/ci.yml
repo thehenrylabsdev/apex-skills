@@ -37,11 +37,20 @@ jobs:
       - name: Run Automated Unit & Integration Tests
         run: npm test
 
-      - name: Run 4-Tier Skill Validator & 24/24 Routing Evals
+      - name: Run 4-Tier Skill Validator & Routing Evals
         run: npm run validate
 
       - name: Run Commit-Pinned Cross-Session Memory Audit
         run: npm run memory-audit
+
+      - name: Run Canonical Reuse Audit
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch origin "${{ github.base_ref }}"
+            node dist/src/cli.js reuse audit --base "origin/${{ github.base_ref }}"
+          else
+            node dist/src/cli.js reuse audit --base HEAD
+          fi
 
       - name: Verify Web App Example (Next.js 16.4.3 Quality Gate)
         run: |

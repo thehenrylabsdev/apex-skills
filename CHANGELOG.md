@@ -5,6 +5,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Canonical Reuse Index (`apex-reuse` + `apex-skills reuse`):**
+  - Model-invoked skill `apex-reuse` runs before a constant, domain literal, or method is added. The implementation calls the canonical symbol the audit names. `enum-fanout` adds the input type or enum as a parameter of that method.
+  - `reuse audit --base <ref>` extracts Java, Kotlin, TypeScript, JavaScript, and Python symbols, hashes normalized method bodies, and fails on a new `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, or `NEAR_CLONE`.
+  - A SQLite ledger at `.apex/reuse-index.sqlite` stores the index by file content hash. Embeddings, tree-sitter, and LSP stay off the verdict.
+  - `apex-tdd`, `apex-verify`, `apex-spec`, `apex-waves`, `apex-router`, and `apex-ship` call the gate. Parallel waves put the shared canonical file in `touchedSeams`.
+  - Cold-start frontmatter is `342` tokens (`1,365` bytes), still under the `600` token ceiling. Routing evals are `32 / 32`.
+
+---
+
 ## [1.2.0] - 2026-10-26
 
 ### Added

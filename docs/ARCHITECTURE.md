@@ -1,6 +1,6 @@
 # Deterministic Engine Architecture (`docs/ARCHITECTURE.md`)
 
-Unlike traditional Agent Skills repositories that rely solely on prose instructions, **`apex-skills`** pairs its 17-skill catalog with a zero-dependency, strictly typed TypeScript verification and runtime engine (`src/`).
+Unlike traditional Agent Skills repositories that rely solely on prose instructions, **`apex-skills`** pairs its 18-skill catalog with a zero-dependency, strictly typed TypeScript verification and runtime engine (`src/`).
 
 ```mermaid
 classDiagram
@@ -23,6 +23,12 @@ classDiagram
         +computePromptAwareCacheKey(input) string
         +extractImmutableSignatures(sourceCode) ImmutableBlockSignature[]
         +verifyImmutableBlocksUnchanged(beforeSource, afterSource) SignatureVerificationResult
+    }
+
+    class ReuseIndex {
+        +extractReuseSymbols(file, source) ReuseSymbol[]
+        +auditReuse(candidates, pool, options) ReuseAuditReport
+        +selectCandidateSymbols(baseline, current) ReuseSymbol[]
     }
 
     class FourTierEvalEngine {
@@ -58,7 +64,7 @@ Replaces fragile bash hooks with deterministic, non-destructive cryptographic ve
 Enforces 4 automated verification gates on every commit:
 - **Tier 1 (Structure, Invocation Graph & Portability):** Checks YAML frontmatter, `agents/openai.yaml` policy parity, zero `../` links, valid `Skill` tool targets (`disableModelInvocation === false`), and mandatory `LEAF-AGENT GUARD` clauses.
 - **Tier 2 (Token Budget Ratchets):** Enforces `<= 600` tokens total cold-start frontmatter and `<= 1,800` tokens per skill file.
-- **Tier 3 (Namespace Collision & 28/28 Adversarial Routing):** Verifies zero collisions with built-in harness commands and `100%` Rank-1 routing accuracy on `evals/routing-benchmark.json`.
+- **Tier 3 (Namespace Collision & 32/32 Adversarial Routing):** Verifies zero collisions with built-in harness commands and `100%` Rank-1 routing accuracy on `evals/routing-benchmark.json`.
 
 ## 5. `VersionLedger` (`src/version-ledger.ts`)
 
@@ -70,3 +76,13 @@ Stops new scaffolds and new dependencies from inheriting a training-cutoff relea
 4. Host language and framework versions already chosen filter that channel: the recommended release is kept when its declared peers, engines, and developed-against constraints accept them, otherwise the newest older stable release that does.
 5. A web search is requested only when those probes return nothing. `versions record` writes the search result back so the next resolve hits the ledger until the next release cycle.
 - **Tier 4 (`src/benchmark.ts`):** Computes reproducible cross-repository metrics across `LaurenTan`, `addyosmani`, `mattpocock`, and `apex-skills`.
+
+## 6. `ReuseIndex` (`src/reuse-extract.ts`, `src/reuse-audit.ts`, `src/reuse-ledger.ts`)
+
+Stops a new constant or near-clone method from landing beside an existing symbol:
+
+1. Extract string constants, domain literals, and method bodies from Java, Kotlin, TypeScript, JavaScript, and Python.
+2. Normalize each method body: comments drop, identifiers become one token, literals collapse, control-flow keywords stay. Hash the token sequence.
+3. Persist the symbols in a repository SQLite ledger keyed by file content hash. An extractor version bump rebuilds the ledger.
+4. `reuse audit --base <ref>` reports only symbols that are new relative to that ref. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` (`enum-fanout` or `same-body`) fail the audit. The message names the canonical symbol to call.
+5. Retrieval stacks (tree-sitter, LSP, embeddings) can suggest a file. They do not decide the verdict. The hash does.

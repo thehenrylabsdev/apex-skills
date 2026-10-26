@@ -39,6 +39,7 @@
     "validate": "tsc && node dist/src/cli.js validate",
     "benchmark": "tsc && node dist/src/cli.js benchmark",
     "memory-audit": "tsc && node dist/src/cli.js memory-audit",
+    "reuse-audit": "tsc && node dist/src/cli.js reuse audit",
     "quality": "bash scripts/check-code-quality.sh"
   },
   "keywords": [

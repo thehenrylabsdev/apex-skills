@@ -19,6 +19,10 @@ flowchart LR
 - [x] `RuntimeGuards` (Prompt-aware cache hashing + non-destructive `@immutable` block verification).
 - [x] 4-Tier CI Validator & 4-Repo Head-to-Head Benchmark Suite.
 
+## Milestone `v1.3.0` — Canonical Reuse Index (Completed)
+- [x] `apex-reuse` and `apex-skills reuse audit` reject a new shadow constant, duplicate domain literal, or near-clone method, including enum fan-out.
+- [x] Repository SQLite ledger keyed by file content hash. The verdict is the normalized body hash.
+
 ## Milestone `v1.2.0` — Release-Channel Ledger (Completed)
 - [x] `apex-versions` selects the current LTS or stable release for greenfield scaffolds and new dependencies, with explicit pins and manifest holds.
 - [x] SQLite version ledger refreshed from package managers and registries when one observed release cycle has elapsed. Web search runs only after those probes miss.

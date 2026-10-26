@@ -20,3 +20,4 @@ This dictionary defines the core domain concepts of **Apex Skills** (**What & Wh
 - **Explicit Version Pin:** A version the user named in the request. It is installed as written, ahead of release-channel selection.
 - **Manifest Hold:** A version already recorded in the project manifest. It stays unchanged unless the user asks to add, replace, or upgrade that package.
 - **Host Compatibility:** A candidate release is admissible when every declared peer, engine, and developed-against constraint accepts the language and framework versions already chosen. A host the package does not mention is unconstrained.
+- **Canonical Reuse Index:** A per-repository SQLite ledger of string constants and normalized method bodies. A new declaration calls the indexed symbol when the literal or the normalized body already exists. Vector similarity is not a gate.

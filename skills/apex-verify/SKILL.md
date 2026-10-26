@@ -22,7 +22,7 @@ Review changes between `HEAD` and a base ref (`git diff <base>...HEAD`) across t
 
 ### 2. Dispatch Two Parallel Depth-1 Leaf Subagents
 - **Subagent A (Spec & Contract Axis):** Reports missing or partial requirements, unrequested scope creep, and subtle behavioral mismatches against the spec. Quotes exact spec lines.
-- **Subagent B (Standards & Architecture Axis):** Checks repo conventions, `CONSTRAINTS.md` ratchets, Ousterhout module depth, and Fowler structural smells (Feature Envy, Shotgun Surgery, Primitive Obsession, Speculative Generality, Data Clumps). Skips anything enforced by deterministic linters.
+- **Subagent B (Standards & Architecture Axis):** Checks repo conventions, `CONSTRAINTS.md` ratchets, Ousterhout module depth, and Fowler structural smells (Feature Envy, Shotgun Surgery, Primitive Obsession, Speculative Generality, Data Clumps). Skips anything enforced by deterministic linters. Attach `npx apex-skills reuse audit`. `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, and `NEAR_CLONE` fail this axis. Call the Skill tool with `apex-reuse` to repair the axis. Leaf reviewers quote the audit and do not invoke skills.
 
 ### 3. Side-by-Side Unmerged Verdict
 Report `## Spec Axis` and `## Standards Axis` separately so passing one axis never masks a failure on the other.

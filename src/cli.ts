@@ -7,6 +7,7 @@ import {
 } from "./benchmark.js";
 import { validateSkillCatalog } from "./eval-engine.js";
 import { auditRepositoryMemory } from "./memory-ledger.js";
+import { executeReuseCommand } from "./reuse-cli.js";
 import type { RoutingEvalCase } from "./types.js";
 
 function runValidate(repoRoot: string): number {
@@ -98,9 +99,11 @@ async function main(): Promise<void> {
   } else if (command === "versions") {
     const loaded = await import("./version-cli.js");
     exitCode = loaded.executeVersionCommand(args.slice(1));
+  } else if (command === "reuse") {
+    exitCode = executeReuseCommand(args.slice(1));
   } else {
     process.stderr.write(
-      `Unknown command "${command}". Supported: validate | memory-audit | benchmark | versions\n`,
+      `Unknown command "${command}". Supported: validate | memory-audit | benchmark | versions | reuse\n`,
     );
     exitCode = 1;
   }

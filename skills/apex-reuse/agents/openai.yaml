@@ -1,0 +1,5 @@
+interface:
+  display_name: "Apex Reuse"
+  short_description: "Audit the canonical reuse index and call the existing constant or method."
+policy:
+  allow_implicit_invocation: true
