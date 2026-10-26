@@ -2,6 +2,8 @@ import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 import { DatabaseSync, type SQLOutputValue } from "node:sqlite";
+import { isRecord } from "./json-record.js";
+import { readSqlNumber, readSqlString } from "./sql-cells.js";
 import {
   EMPTY_CONSTRAINTS,
   cadenceDaysFromReleases,
@@ -135,21 +137,11 @@ export function openVersionLedger(dbPath: string): VersionLedger {
 }
 
 function cellString(value: SQLOutputValue | undefined): string | null {
-  return typeof value === "string" ? value : null;
+  return readSqlString(value);
 }
 
 function cellNumber(value: SQLOutputValue | undefined): number | null {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return value;
-  }
-  if (typeof value === "bigint" && value <= BigInt(Number.MAX_SAFE_INTEGER)) {
-    return Number(value);
-  }
-  return null;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+  return readSqlNumber(value);
 }
 
 function readStringRecord(value: unknown): Readonly<Record<string, string>> | null {

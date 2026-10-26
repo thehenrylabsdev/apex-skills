@@ -1,3 +1,4 @@
+import { isRecord } from "./json-record.js";
 import { createRegistryClient, createDefaultProbeIo } from "./version-probes.js";
 import {
   defaultLedgerPath,
@@ -60,10 +61,6 @@ function writeErr(options: VersionCommandOptions, chunk: string): void {
       process.stderr.write(value);
     });
   stderr(chunk);
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function parseHostToken(

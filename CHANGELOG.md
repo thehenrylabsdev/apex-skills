@@ -5,6 +5,27 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Canonical Reuse Index (`apex-reuse` + `apex-skills reuse`):**
+  - Model-invoked skill `apex-reuse` runs before a constant, domain literal, or method is added. The implementation calls the canonical symbol the audit names. `enum-fanout` adds the input type or enum as a parameter of that method.
+  - `reuse audit --base <ref>` extracts Java, Kotlin, TypeScript, JavaScript, and Python symbols, hashes normalized method bodies, and fails on a new `SHADOW_CONSTANT`, `DUPLICATE_LITERAL`, or `NEAR_CLONE`.
+  - A SQLite ledger at `.apex/reuse-index.sqlite` stores the index by file content hash. Embeddings, tree-sitter, and LSP stay off the verdict.
+  - `apex-tdd`, `apex-verify`, `apex-spec`, `apex-waves`, `apex-router`, and `apex-ship` call the gate. Parallel waves put the shared canonical file in `touchedSeams`.
+  - Cold-start frontmatter is `342` tokens (`1,365` bytes), still under the `600` token ceiling. Routing evals are `32 / 32`.
+
+- **Project Scan (`apex-skills scan` + `apex-skills hooks install`):**
+  - The same gate runs in every repository. A changed line fails when it adds a canonical-reuse finding, a copied token block, a credential, or a dangerous sink (`eval`, native deserialization, HTML injection, TLS bypass, shell concatenation).
+  - A changed npm manifest fails on a high or critical `npm audit` advisory. A changed Gradle, Maven, Go, Rust, Python, Composer, NuGet, Ruby, or Swift manifest fails until a lockfile sits beside it. Resolved Go, Rust, Python, Composer, NuGet, and Ruby lockfiles are queried against OSV. An unreachable advisory service fails the scan.
+  - SonarQube and gitleaks run when `sonar-project.properties`, `.gitleaks.toml`, or `.apex/scan.json` opts in. Docker and MCP are not the gate.
+  - `hooks install` writes a Claude Code Stop hook and a Cursor stop hook. `hooks install --global` covers later repositories on that machine. CI runs the same command.
+  - Enum fan-out enters the reuse floor at 8 normalized tokens. A same-body near-clone stays at 12 normalized tokens and 2 significant tokens.
+  - `scripts/pre-pr-docker.sh` runs an optional local depth scan from `docker-compose.quality.yml`. Gitleaks `v8.30.1` reads git history, Semgrep `1.181.1` runs the OWASP Top 10 rules with metrics off, and Trivy `0.76.1` reports high and critical advisories for the whole checkout. Docker is not the agent gate.
+
+---
+
 ## [1.2.0] - 2026-10-26
 
 ### Added

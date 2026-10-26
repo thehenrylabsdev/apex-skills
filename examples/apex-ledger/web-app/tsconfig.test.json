@@ -12,7 +12,8 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "outDir": "./dist-test",
-    "rootDir": "."
+    // contract-validator.ts imports the canonical isRecord from the repository src/.
+    "rootDir": "../../.."
   },
   "include": [
     "src/config/**/*.ts",

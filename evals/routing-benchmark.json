@@ -194,5 +194,33 @@
     "expectedSkill": "apex-versions",
     "forbiddenSkills": ["apex-guard", "apex-memory"],
     "category": "adversarial"
+  },
+  {
+    "id": "reuse-01-canonical-constant",
+    "prompt": "Audit the canonical reuse index before adding a constant, and call the existing symbol instead of a near-clone.",
+    "expectedSkill": "apex-reuse",
+    "forbiddenSkills": ["apex-tdd", "apex-verify"],
+    "category": "natural"
+  },
+  {
+    "id": "reuse-02-string-literal",
+    "prompt": "Before adding a string literal or method, audit the canonical reuse index and call the existing symbol.",
+    "expectedSkill": "apex-reuse",
+    "forbiddenSkills": ["apex-tdd"],
+    "category": "natural"
+  },
+  {
+    "id": "reuse-03-near-clone",
+    "prompt": "Audit the canonical reuse index and call the existing symbol instead of a near-clone method.",
+    "expectedSkill": "apex-reuse",
+    "forbiddenSkills": ["apex-diagnose"],
+    "category": "understated"
+  },
+  {
+    "id": "reuse-04-existing-symbol",
+    "prompt": "Call the existing symbol from the canonical reuse index before adding a constant or string literal.",
+    "expectedSkill": "apex-reuse",
+    "forbiddenSkills": ["apex-guard", "apex-memory"],
+    "category": "adversarial"
   }
 ]

@@ -4,6 +4,7 @@ coverage/
 .DS_Store
 *.log
 .apex/tmp/
+.apex/reuse-index.sqlite
 **/.gradle/
 **/build/
 **/.next/

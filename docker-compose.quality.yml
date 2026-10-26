@@ -1,0 +1,81 @@
+name: apex-skills-quality
+
+services:
+  gitleaks:
+    image: zricethezav/gitleaks:v8.30.1
+    entrypoint: ["gitleaks"]
+    command:
+      - detect
+      - --source=/repo
+      - --redact
+      - --no-banner
+      - --exit-code
+      - "1"
+    volumes:
+      - ${SCAN_ROOT:-.}:/repo:ro
+
+  semgrep:
+    image: semgrep/semgrep:1.181.1
+    working_dir: /src
+    environment:
+      SEMGREP_SEND_METRICS: "off"
+    entrypoint: ["semgrep"]
+    command:
+      - scan
+      - --metrics
+      - "off"
+      - --error
+      - --config
+      - p/owasp-top-ten
+      - --exclude
+      - node_modules
+      - --exclude
+      - dist
+      - --exclude
+      - build
+      - --exclude
+      - coverage
+      - --exclude
+      - .gradle
+      - --exclude
+      - target
+      - --exclude
+      - .apex
+      - /src
+    volumes:
+      - ${SCAN_ROOT:-.}:/src:ro
+
+  trivy:
+    image: aquasec/trivy:0.76.1
+    entrypoint: ["trivy"]
+    environment:
+      TRIVY_CACHE_DIR: /cache
+    command:
+      - fs
+      - --exit-code
+      - "1"
+      - --severity
+      - HIGH,CRITICAL
+      - --scanners
+      - vuln
+      - --skip-dirs
+      - node_modules
+      - --skip-dirs
+      - dist
+      - --skip-dirs
+      - build
+      - --skip-dirs
+      - coverage
+      - --skip-dirs
+      - .gradle
+      - --skip-dirs
+      - target
+      - --skip-dirs
+      - .apex
+      - /repo
+    volumes:
+      - ${SCAN_ROOT:-.}:/repo:ro
+      - trivy-cache:/cache
+
+volumes:
+  trivy-cache:

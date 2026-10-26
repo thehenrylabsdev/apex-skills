@@ -23,6 +23,9 @@ Build software through **Vertical Tracer Bullets** tested strictly at **Pre-Agre
 | *"I'll mock the internal repository class for speed."* | Mocking internal collaborators couples tests to shallow implementation details. Test at the public seam. |
 | *"Let me clean up this adjacent class while I'm here."* | Mid-loop refactoring pollutes diffs and breaks mental invariants. Finish Green first. |
 
+## Canonical Reuse
+Before the GREEN implementation declares a constant, string literal, or method, Call the Skill tool with `apex-reuse`. The implementation calls the canonical symbol named by `npx apex-skills reuse audit`. An input type or enum that would otherwise become a sibling method is a parameter of that canonical method.
+
 ## Release Channel
 When a slice scaffolds a runtime or introduces a dependency, Call the Skill tool with `apex-versions` and install only the version it selects. An explicit user version and an existing manifest entry stay as written.
 
@@ -30,3 +33,4 @@ When a slice scaffolds a runtime or introduces a dependency, Call the Skill tool
 - [ ] Every new behavior was observed failing (`RED`) before the implementation line was written.
 - [ ] All tests target public module seams with zero unverified internal mocks.
 - [ ] Full test suite, typechecker, and `CONSTRAINTS.md` ratchets pass.
+- [ ] `npx apex-skills reuse audit` reports no new shadow constant, duplicate literal, or near-clone.

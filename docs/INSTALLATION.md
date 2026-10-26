@@ -58,7 +58,7 @@ To enable automatic updates in `~/.copilot/settings.json`:
 
 ### Option D: Gemini CLI & Google Antigravity
 
-Because `apex-skills` uses a flat `skills/<name>/` directory, a single command installs all 17 skills:
+Because `apex-skills` uses a flat `skills/<name>/` directory, a single command installs all 18 skills:
 
 ```bash
 gemini skills install https://github.com/thehenrylabsdev/apex-skills.git --path skills
@@ -67,7 +67,7 @@ gemini skills install https://github.com/thehenrylabsdev/apex-skills.git --path 
 ### Option E: Universal `skills.sh` Installer (All Agents, or Single-Skill Install)
 
 ```bash
-# Install all 17 skills for a specific agent (cursor, claude-code, codex, opencode, windsurf, devin):
+# Install all 18 skills for a specific agent (cursor, claude-code, codex, opencode, windsurf, devin):
 npx skills@latest add thehenrylabsdev/apex-skills -a cursor
 
 # Install a single self-contained skill:

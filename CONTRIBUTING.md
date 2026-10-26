@@ -36,7 +36,14 @@ This executes:
 1. `npx eslint . --max-warnings 0` (ESLint v10 `strictTypeChecked`)
 2. `npx tsc --noEmit` (TypeScript strictest compiler settings)
 3. `npm test` (Automated unit and integration suite)
-4. `npm run validate` (4-Tier Skill Catalog & 28/28 Routing Eval Validator)
+4. `npm run validate` (4-Tier Skill Catalog & 32/32 Routing Eval Validator)
+5. `npx apex-skills scan --base <merge-base>` (project scan: canonical reuse, credentials, and advisories; also run by `npm run quality`)
+
+Before opening a pull request, an engineer with Docker can also run the local depth scan. It is not part of `npm run quality`:
+
+```bash
+bash scripts/pre-pr-docker.sh
+```
 
 ---
 

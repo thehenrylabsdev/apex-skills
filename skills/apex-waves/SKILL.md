@@ -13,6 +13,7 @@ Execute multi-task specifications without triggering SWE-bench's `-24%` multi-ag
 1. **Mathematically Disjoint Parallel Waves ($\text{Seams}_A \cap \text{Seams}_B = \emptyset$):**
    - Before spawning parallel worktree subagents, list every task's `dependsOn` and `touchedSeams` (file paths / module globs).
    - Never run two tasks in the same wave if their `touchedSeams` overlap (`src/seam-analyzer.ts` `scheduleDisjointWaves`). Overlapping tasks are automatically serialized into subsequent waves.
+   - A shared constant or method belongs in `touchedSeams`. The tasks then serialize on that canonical file instead of each declaring a local copy.
 2. **Warm KV-Cache Subagent Reuse (Never Spawn Cold Fixers):**
    - When `apex-verify` or tests flag an issue on a task, send the fix instruction back to the **existing warm implementer context** that already holds the codebase prefix in its KV-Cache (saving ~90% input read cost), rather than spawning a cold subagent from scratch.
 3. **LEAF-AGENT GUARD:** Every implementer subagent prompt begins with:

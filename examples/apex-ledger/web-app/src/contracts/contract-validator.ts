@@ -1,3 +1,4 @@
+import { isRecord } from "../../../../../src/json-record";
 import { CLIENT_SUPPORTED_CONTRACT_VERSION } from "../config/env";
 
 export type CheckoutPhase =
@@ -97,10 +98,6 @@ export interface ProblemDetailsDto {
   readonly detail: string;
   readonly errorCode: string;
   readonly traceId: string;
-}
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function readString(obj: Record<string, unknown>, key: string): string {

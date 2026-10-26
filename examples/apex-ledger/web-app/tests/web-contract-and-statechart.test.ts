@@ -17,7 +17,19 @@ import {
   reduceWebCheckoutState,
 } from "../src/statechart/checkout-statechart";
 
-const CONTRACTS_DIR = path.resolve(__dirname, "../../../contracts");
+const CONTRACTS_DIR = findContractsDirectory(__dirname);
+
+function findContractsDirectory(start: string): string {
+  let current = start;
+  while (path.dirname(current) !== current) {
+    const candidate = path.join(current, "contracts", "campaigns-response.json");
+    if (fs.existsSync(candidate)) {
+      return path.dirname(candidate);
+    }
+    current = path.dirname(current);
+  }
+  throw new Error("ApexLedger contract fixtures were not found.");
+}
 
 function readJsonFixture(fileName: string): unknown {
   const fullPath = path.join(CONTRACTS_DIR, fileName);
