@@ -1,6 +1,6 @@
 {
   "name": "apex-skills",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Token-optimal, empirically verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents (2026+).",
   "author": {
     "name": "Henry Nguyen",
@@ -16,6 +16,7 @@
     "./skills/apex-guard",
     "./skills/apex-handoff",
     "./skills/apex-memory",
+    "./skills/apex-reuse",
     "./skills/apex-retro",
     "./skills/apex-router",
     "./skills/apex-setup",
@@ -24,6 +25,7 @@
     "./skills/apex-statechart",
     "./skills/apex-tdd",
     "./skills/apex-verify",
+    "./skills/apex-versions",
     "./skills/apex-waves",
     "./skills/apex-wayfinder"
   ],

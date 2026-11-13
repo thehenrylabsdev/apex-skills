@@ -1,4 +1,4 @@
-# Apex Skills (`v1.0.0`)
+# Apex Skills (`v1.2.0`)
 
 **Token-Optimal, Empirically Verified Agent Skills & Deterministic Context Engine for Frontier AI Coding Agents (2026+)**
 
@@ -24,7 +24,7 @@ Recent empirical benchmarks on AI coding agents—including the **ETH Zurich SRI
 
 Reproduce this table anytime by running `npm run benchmark`:
 
-| Metric | `LaurenTan` (`pstack` v0.15.32) | `addyosmani` (`agent-skills` v0.6.13) | `mattpocock` (`skills` v1.3.1) | **`apex-skills` (`v1.0.0`)** |
+| Metric | `LaurenTan` (`pstack` v0.15.32) | `addyosmani` (`agent-skills` v0.6.13) | `mattpocock` (`skills` v1.3.1) | **`apex-skills` (`Unreleased`)** |
 | :--- | :--- | :--- | :--- | :--- |
 | **Total Skills (Model vs. User-Invoked)** | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **18 (8 model / 10 user)** |
 | **Cold-Start Token Tax (Turn 0)** | **5,168 tok** (20,669 B) | **5,095 tok** (20,379 B) | **922 tok** (3,688 B) | **342 tok** (1,365 B) (**-93.4%**) |
@@ -34,6 +34,9 @@ Reproduce this table anytime by running `npm run benchmark`:
 | **Harness Built-In Collisions (#423/#857/#1019)** | 0 | 0 | 3 (`code-review`, `research`, `prototype`) | **0** (`apex-*` namespaced) |
 | **Unguarded Recursive Subagent Skills (#530/#573)** | 1 | 2 | 4 | **0** (Hard `LEAF-AGENT GUARD`) |
 | **Cross-Session Memory Drift Detection** | Session-only (`orch.ts`) | Manual (`CONSTRAINTS.md`) | Manual (`GLOSSARY.md`) | **Automated Git-SHA Ledger (`memory-audit`)** |
+
+
+> **Reference values, not measured:** the turn-stop row (all four columns) and the `addyosmani` simulated-feature figure (`50,450` constant) are hard-coded in `src/benchmark.ts`. Competitor cold-start, file and link counts are computed from the repositories on disk. The `apex-skills` column reflects the unreleased tree after `v1.2.0`.
 
 ---
 
@@ -67,7 +70,7 @@ flowchart TD
 
 ```mermaid
 flowchart TB
-    subgraph Budget["1. Dual-Budget Context Layer (299 Tokens Cold-Start)"]
+    subgraph Budget["1. Dual-Budget Context Layer (342 Tokens Cold-Start)"]
         direction LR
         M6["8 Model-Invoked Core Skills (1,365 B / 342 Tokens)<br/>apex-grill | apex-tdd | apex-diagnose | apex-reuse<br/>apex-verify | apex-guard | apex-memory | apex-versions"]
         U10["10 User-Invoked Workflow Skills (0 Cold-Start Tax)<br/>disable-model-invocation: true + allow_implicit_invocation: false<br/>/apex-router | /apex-wayfinder | /apex-spec | /apex-waves | /apex-arena<br/>/apex-statechart | /apex-ship | /apex-retro | /apex-handoff | /apex-setup"]
@@ -95,7 +98,7 @@ Because `apex-skills` uses a **flat promoted-only `skills/<name>/SKILL.md` layou
 ### 1. Universal `skills.sh` Installer (Claude Code, Cursor, OpenCode, Windsurf, Devin, Amp)
 
 ```bash
-# Install the complete 17-skill suite:
+# Install the complete 18-skill suite:
 npx skills@latest add thehenrylabsdev/apex-skills
 
 # Or install a single self-contained skill (zero broken ../ links):
