@@ -4,7 +4,7 @@ This roadmap outlines the planned evolution of **`apex-skills`** from `v1.0.0` t
 
 ```mermaid
 flowchart LR
-    V10["v1.0.0 (Current - Oct 2026)<br/>16 Core/Workflow Skills<br/>256-Token Cold-Start<br/>Git-Pinned Memory Ledger<br/>Disjoint-Seam Wave Engine"] --> V11["v1.1.0 (Q4 2026)<br/>AST-Aware Seam Extractor<br/>Automated Worktree Orchestrator CLI<br/>Live LLM Behavioral Eval Harness"]
+    V10["Current: v1.2.0 + Unreleased (Oct 2026)<br/>18 Core/Workflow Skills<br/>342-Token Cold-Start<br/>Git-Pinned Memory Ledger<br/>Disjoint-Seam Wave Engine"] --> V11["Next (Q4 2026, planned)<br/>AST-Aware Seam Extractor<br/>Automated Worktree Orchestrator CLI<br/>Live LLM Behavioral Eval Harness"]
     V11 --> V15["v1.5.0 (Q1 2027)<br/>Cross-Repo Monorepo Federation<br/>GLOSSARY-MAP.md Auto-Router<br/>Telemetry-Driven KV-Cache Profiler"]
     V15 --> V20["v2.0.0 (Q2 2027)<br/>Adaptive Counter-Prior Pruning<br/>Per-Model Capability Profiles<br/>Formal TLA+/Alloy Trace Synthesis"]
 ```
@@ -19,11 +19,11 @@ flowchart LR
 - [x] `RuntimeGuards` (Prompt-aware cache hashing + non-destructive `@immutable` block verification).
 - [x] 4-Tier CI Validator & 4-Repo Head-to-Head Benchmark Suite.
 
-## Milestone `v1.4.0` — Project Scan (Completed)
+## Milestone `v1.4.0` — Project Scan (Completed, in `[Unreleased]` of the CHANGELOG)
 - [x] `apex-skills scan` is the gate for every repository: canonical reuse, copied token blocks, credentials, dangerous sinks, a lockfile beside a changed manifest, and high or critical advisories on resolved versions.
 - [x] `apex-skills hooks install` blocks Claude Code and Cursor from ending a turn until the scan passes. `--global` covers later repositories on that machine.
 
-## Milestone `v1.3.0` — Canonical Reuse Index (Completed)
+## Milestone `v1.3.0` — Canonical Reuse Index (Completed, in `[Unreleased]` of the CHANGELOG)
 - [x] `apex-reuse` and `apex-skills reuse audit` reject a new shadow constant, duplicate domain literal, or near-clone method, including enum fan-out.
 - [x] Repository SQLite ledger keyed by file content hash. The verdict is the normalized body hash.
 
@@ -33,7 +33,7 @@ flowchart LR
 
 ---
 
-## Milestone `v1.1.0` — Automated Worktree Wave Runner & AST Seam Extractor
+## Next milestone (planned) — Automated Worktree Wave Runner & AST Seam Extractor
 - [ ] **`apex-skills wave-run` CLI Command:** Automatically create, branch, test, and fast-forward merge git worktrees for each wave emitted by `scheduleDisjointWaves()`.
 - [ ] **Static Import-Graph Seam Extractor:** Parse TypeScript/Python/Go import graphs to automatically populate `touchedSeams` from a spec's target symbols without manual glob listing.
 - [ ] **Live Headless Harness Runner (`evals/live/`):** Optional CI matrix executing headless `claude -p` and `codex` runs to track behavioral adherence alongside deterministic routing evals.

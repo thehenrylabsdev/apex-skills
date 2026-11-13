@@ -9,12 +9,12 @@
   "plugins": [
     {
       "name": "apex-skills",
-      "version": "1.0.0",
+      "version": "1.2.0",
       "source": {
         "source": "github",
         "repo": "thehenrylabsdev/apex-skills"
       },
-      "description": "16 high-leverage engineering skills with <600 token cold-start ceiling, git-pinned cross-session memory, disjoint-seam wave execution, and 4-tier empirical verification.",
+      "description": "18 high-leverage engineering skills with <600 token cold-start ceiling, git-pinned cross-session memory, disjoint-seam wave execution, and 4-tier empirical verification.",
       "homepage": "https://github.com/thehenrylabsdev/apex-skills",
       "license": "MIT",
       "category": "engineering",

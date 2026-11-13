@@ -1,6 +1,6 @@
 # 4-Way Empirical Benchmark Report (`docs/BENCHMARK-REPORT.md`)
 
-This report documents the methodology, mathematical equations, and live empirical measurements comparing **`apex-skills` (`v1.0.0`)** against **`LaurenTan` (`pstack` v0.15.32)**, **`addyosmani` (`agent-skills` v0.6.13)**, and **`mattpocock` (`skills` v1.3.1)**.
+This report documents the methodology, mathematical equations, and live empirical measurements comparing **`apex-skills` (`Unreleased`, after `v1.2.0`)** against **`LaurenTan` (`pstack` v0.15.32)**, **`addyosmani` (`agent-skills` v0.6.13)**, and **`mattpocock` (`skills` v1.3.1)**.
 
 To reproduce all measurements directly from the repositories on disk, run:
 
@@ -10,9 +10,9 @@ npm run benchmark
 
 ---
 
-## 1. Live Measured Comparison Table
+## 1. Comparison Table
 
-| Metric | `LaurenTan` (`pstack`) | `addyosmani` (`agent-skills`) | `mattpocock` (`skills`) | **`apex-skills` (`v1.0.0`)** |
+| Metric | `LaurenTan` (`pstack`) | `addyosmani` (`agent-skills`) | `mattpocock` (`skills`) | **`apex-skills` (`Unreleased`)** |
 | :--- | :--- | :--- | :--- | :--- |
 | Total Markdown Files / Lines | 139 files / 8,263 lines | 144 files / 23,005 lines | 133 files / 7,956 lines | **24 files / 1,012 lines** |
 | Total Skills (Model vs. User-Invoked) | 58 (1 model / 57 user) | 25 (25 model / 0 user) | 38 (15 model / 23 user) | **18 (8 model / 10 user)** |
@@ -22,6 +22,9 @@ npm run benchmark
 | Broken Standalone Links (`--skill` Issue #361) | 62 | 15 | 1 | **0** |
 | Harness Built-In Command Collisions (#423/#857) | 0 | 0 | 3 | **0** |
 | Unguarded Recursive Subagent Skills (#530/#573) | 1 | 2 | 4 | **0** |
+
+> **Reference values, not measured:** the turn-stop row (all four columns) and the `addyosmani` simulated-feature figure (`50,450` constant) are hard-coded in `src/benchmark.ts`. Competitor cold-start, file and link counts are computed from the repositories on disk. The `apex-skills` column reflects the unreleased tree after `v1.2.0`.
+
 
 ---
 

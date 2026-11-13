@@ -61,7 +61,7 @@ Before writing implementation code, `/apex-statechart` formalized the 9-state ch
 
 ## 4. Phase 2: Disjoint-Seam Wave Scheduling (`/apex-waves`)
 
-Using `scheduleDisjointWaves` from `src/orchestrator/wave-scheduler.ts`, the build was partitioned into 4 waves with zero overlapping file paths (`touchedSeams`):
+Using `scheduleDisjointWaves` from `src/seam-analyzer.ts`, the build was partitioned into 4 waves with zero overlapping file paths (`touchedSeams`):
 
 ```mermaid
 flowchart TB

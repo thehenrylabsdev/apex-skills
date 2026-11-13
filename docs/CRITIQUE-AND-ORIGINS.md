@@ -64,7 +64,7 @@ This document presents a rigorous, source-verified dissection of each repository
 
 | Empirical Failure Mode & Source | Deterministic Solution in `apex-skills` |
 | :--- | :--- |
-| **ETH Zurich SRI Lab Study:** Verbose context files reduce pass rates by `2%` and inflate costs by `23%` | **Strict `< 600` Token Cold-Start Ratchet (`256` tokens actual)** + **Behavioral Deletion Test** (encoding only *Counter-Prior Deltas*). |
+| **ETH Zurich SRI Lab Study:** Verbose context files reduce pass rates by `2%` and inflate costs by `23%` | **Strict `< 600` Token Cold-Start Ratchet (`342` tokens actual)** + **Behavioral Deletion Test** (encoding only *Counter-Prior Deltas*). |
 | **SWE-bench Verified Concurrency Study:** Uncoordinated multi-agent fan-out drops accuracy from `83% -> 59%` | **`DisjointSeamAnalyzer` (`src/seam-analyzer.ts`):** Mathematically verifies $\text{Seams}_A \cap \text{Seams}_B = \emptyset$ before parallel worktree dispatch in `/apex-waves`. |
 | **LaurenTan `feature.md`:** 19 cold subagents burn `383k` uncached tokens | **Warm KV-Cache Subagent Reuse:** Routes review feedback back to the warm implementer context holding the cached prefix (**-82.3%** uncached tokens). |
 | **Addy `interview-me` (1 Q/turn) vs. Matt `grilling` (200 Qs - Issue `#44`)** | **`apex-grill` (Bounded Frontier Grilling):** Caps each round at **4 highest-epistemic-gain questions** with default-yes (`➡️`) recommendations. |
