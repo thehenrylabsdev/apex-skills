@@ -14,7 +14,7 @@ Every threshold in this file is enforced by `npm run quality` (`scripts/check-co
 
 ## 3. Code Quality & Security Ratchets
 - [sha:a356c4b | scope:tsconfig.json] **Compiler & Linter Strictness:** `0` errors and `0` warnings under ESLint v10 `strictTypeChecked` and TypeScript `strict: true`, `noImplicitAny`, `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`.
-- [sha:7539348 | scope:package.json] **Supply-Chain Vulnerability Floor:** `0` vulnerabilities reported by `npm audit` and `0` runtime npm dependencies.
+- [sha:8ecb205 | scope:package.json] **Supply-Chain Vulnerability Floor:** `0` vulnerabilities reported by `npm audit` and `0` runtime npm dependencies.
 - [sha:4944f5d | scope:examples/apex-ledger/contracts/**, DESIGNS.md] **Cross-Layer Contract & WCAG 2.2 AA Floor:** `100%` of wire fixtures (`v1` and forward-compatible `v2`) must pass Backend Producer, Web Consumer, KMP Consumer, and iOS Swift 6.4 Consumer contract tests alongside `0` WCAG 2.2 AA errors.
 
 ## 4. Canonical Reuse Floor
